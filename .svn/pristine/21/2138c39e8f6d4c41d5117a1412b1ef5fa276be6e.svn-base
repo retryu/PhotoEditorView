@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="zebra_crop_image_btm_bar_bg_height">55dp</dimen>
+    <dimen name="zebra_doodle_operation_bar_height">55dp</dimen>
+	<dimen name="zebra_doodle_color_size">35dp</dimen>
+    <dimen name="zebra_title_bar_button_horizontal_spacing">8dp</dimen>
+    <dimen name="zebra_crop_pic_margin">32dp</dimen>
+    <dimen name="zebra_crop_corner_size">24dp</dimen>
+</resources>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/retryu/photoplugs/libs/pluginsdk.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="77d6b55abdd707d3dc0d13ea61e2a9af1574a7ec">
+        <dex dex="/Users/retryu/photoplugs/build/intermediates/pre-dexed/debug/pluginsdk-250c1eeb1a26360db202502f81322c3a5028e3f3.jar" />
+    </item>
+    <item
+        jar="/Users/retryu/photoplugs/libs/wup-1.0.0-SNAPSHOT.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="0277c5db51d408d83bd369a7fac5d71cbdecc014">
+        <dex dex="/Users/retryu/photoplugs/build/intermediates/pre-dexed/debug/wup-1.0.0-SNAPSHOT-fa9fdb8715169d2080e275a27054d73402e2fc64.jar" />
+    </item>
+    <item
+        jar="/Users/retryu/photoplugs/libs/skin_engine_1.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="2770ce4ba4dc78ecdfc106b322cb4d3f856af829">
+        <dex dex="/Users/retryu/photoplugs/build/intermediates/pre-dexed/debug/skin_engine_1.1-e4bf1fc4fe0aefc6d25deb1cd5b1e81aeea70cf8.jar" />
+    </item>
+    <item
+        jar="/Users/retryu/photoplugs/libs/ZebraQQStub.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="58c11f7a5530cabe9a2cbcc3845d4b279a93efe0">
+        <dex dex="/Users/retryu/photoplugs/build/intermediates/pre-dexed/debug/ZebraQQStub-ff7e1a930c7014df6e1b2ce3215abc434bdf3e0b.jar" />
+    </item>
+    <item
+        jar="/Users/retryu/photoplugs/libs/filterengine.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="be764136e16236385ada88a2a44395098434a7f5">
+        <dex dex="/Users/retryu/photoplugs/build/intermediates/pre-dexed/debug/filterengine-33f031807b24fa435221c387c214cc20a5ca463b.jar" />
+    </item>
+    <item
+        jar="/Users/retryu/photoplugs/libs/JceInterface.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3e34d2d7e2d097940157c6ce01766e62aaafa73c">
+        <dex dex="/Users/retryu/photoplugs/build/intermediates/pre-dexed/debug/JceInterface-8f605f15ab9402b5be2bece3685ecf050256e2d2.jar" />
+    </item>
+    <item
+        jar="/Users/retryu/photoplugs/libs/msfDebugSdk.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="29d41bec857cd5fa0e0b5ec7ceaa44f9c82628d4">
+        <dex dex="/Users/retryu/photoplugs/build/intermediates/pre-dexed/debug/msfDebugSdk-b5d374c0301235516d865555cb40df930862123a.jar" />
+    </item>
+    <item
+        jar="/Users/retryu/photoplugs/build/native-libs/native-libs.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="92c123d9cf5c4e0d606cecbff9312bc267c35bcf">
+        <dex dex="/Users/retryu/photoplugs/build/intermediates/pre-dexed/debug/native-libs-54d10ebd64c7a6c025326684293407ab08c0c0b2.jar" />
+    </item>
+    <item
+        jar="/Users/retryu/photoplugs/libs/pitu_open_sdk_v1.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="c29e8ff1ab34ae8e673a2fb160a60088de9c26fc">
+        <dex dex="/Users/retryu/photoplugs/build/intermediates/pre-dexed/debug/pitu_open_sdk_v1.0-1654a2314acadaf6d1a5b6fc9ecbc97b90848906.jar" />
+    </item>
+
+</items>

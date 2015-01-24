@@ -1,0 +1,877 @@
+package com.tencent.zebra.doodle;
+
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.tencent.photoplus.R;
+import com.tencent.zebra.crop.CropImageActivity;
+import com.tencent.zebra.editutil.Util;
+import com.tencent.zebra.effect.Effects;
+import com.tencent.zebra.effect.PhotoEffectActivity;
+import com.tencent.zebra.util.ReportUtils;
+import com.tencent.zebra.util.ZebraCustomDialog;
+import com.tencent.zebra.util.ZebraProgressDialog;
+import com.tencent.zebra.util.log.ZebraLog;
+
+import java.util.ArrayList;
+
+import cooperation.zebra.ZebraPluginProxy;
+
+/**
+ * Version 1.0
+ * <p/>
+ * <p/>
+ * Date: 2014-09-25 19:23
+ * Author: retryu
+ * <p/>
+ * <p/>
+ * Copyright © 1998-2014 Tencent Technology (Shenzhen) Company Ltd.
+ */
+public class DoodleEffect extends Effects implements DrawableImageView.OnDrawListener {
+
+    public static final String TAG = "DoodleActivity";
+    private static final int TAB_DRAW = 0;
+    private static final int TAB_ERASE = 1;
+    private DrawableImageView imageView;
+    private Button buttonDraw;
+    private Button buttonErase;
+    //	private View penSettingLayout;
+    private View eraserSettingLayout;
+    //	private SeekBar penSizeSeekBar;
+//	private SeekBar penColorSeekBar;
+//	private SeekBar eraserSizeSeekBar;
+    private Button buttonEraseAll;
+
+    // 还原大小用的matrix
+    private Matrix imageMatrix;
+    private Paint mPaint;
+    private int color = 0xf93021;
+    private int penSize = 10;
+    private int eraserSize = 50;
+
+    private Bitmap original;
+
+    private int mCurTab;
+    private Button back;
+    private Button confirm;
+    private ImageView mUndoBtn;
+    private ImageView mEraserBtn;
+    private ImageView mRedPenBtn;
+    private ImageView mYellowPenBtn;
+    private ImageView mOrangePenBtn;
+    private ImageView mGreenPenBtn;
+    private ImageView mBluePenBtn;
+    private ImageView mPinkPenBtn;
+    private ImageView mMosaicPenBtn;
+
+    private ArrayList<View> mPenList = new ArrayList<View>();
+
+
+
+    boolean beedit = false;
+
+    private ProgressDialog mProgressDialog;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == SHOW_DLG) {
+                mProgressDialog = ZebraProgressDialog.show(getThisActivity(), null, getThisActivity().getString(R.string.zebra_loading),
+                        true, false);
+            } else if (msg.what == INIT_UI) {
+                if (mProgressDialog != null) {
+                    mProgressDialog.dismiss();
+                }
+                initUI();
+            } else if (msg.what == FAIL_EXIT) {
+                try {
+                    Toast.makeText(getThisActivity(),
+                            getThisActivity().getResources().getString(R.string.zebra_file_not_exsit_or_unvalid), Toast.LENGTH_LONG)
+                            .show();
+                } catch (Exception e) {
+                    // TODO 插件很奇怪，这里可能会出现Exception，暂时没有时间跟踪，先备注
+                    ZebraLog.e(TAG, "Handler.handleMessage", e);
+                }
+                recyleImage();
+                // setResult(RESULT_CANCELED);
+                // DoodleActivity.this.finish();
+                setResultCancel();
+            } else if (msg.what == NOT_ENOUGH_MEMORY_EXIT) {
+                try {
+                    Toast.makeText(getThisActivity(),
+                            getThisActivity().getResources().getString(R.string.zebra_not_enough_memory), Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    // TODO 插件很奇怪，这里可能会出现Exception，暂时没有时间跟踪，先备注
+                    ZebraLog.e(TAG, "Handler.handleMessage", e);
+                }
+                recyleImage();
+                // setResult(RESULT_CANCELED);
+                // DoodleActivity.this.finish();
+                setResultCancel();
+            } else if (msg.what == TOOSMALL_EXIT) {
+                try {
+                    Toast.makeText(getThisActivity(),
+                            getThisActivity().getResources().getString(R.string.zebra_smallpic_tip), Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    // TODO 插件很奇怪，这里可能会出现Exception，暂时没有时间跟踪，先备注
+                    ZebraLog.e(TAG, "Handler.handleMessage", e);
+                }
+
+                recyleImage();
+                // setResult(RESULT_CANCELED);
+                // DoodleActivity.this.finish();
+                setResultCancel();
+            }
+        }
+    };
+
+    private static int SHOW_DLG = 9000;
+    private static int INIT_UI = 9001;
+    private static int FAIL_EXIT = 9002;
+    private static int NOT_ENOUGH_MEMORY_EXIT = 9003;
+    private static int TOOSMALL_EXIT = 9004;
+
+    private  PhotoEffectActivity  photoEffectActivity;
+    private  ViewGroup   containner;
+    private ViewGroup effecrContainer;
+
+    public DoodleEffect(PhotoEffectActivity p ,ViewGroup v,ViewGroup  effecrLayout ,String  path) {
+        super(p, v);
+        this.photoEffectActivity = p;
+        this.effecrContainer = effecrLayout;
+        this.containner = (ViewGroup) v.findViewById(R.id.image_parent);
+        this.mPath = path;
+    }
+
+    public PhotoEffectActivity getThisActivity(){
+        return photoEffectActivity;
+    }
+
+
+    private void initUI() {
+
+//        imageView = (DrawableImageView) containner.findViewById(R.id.imageView);
+        imageView = new DrawableImageView(photoEffectActivity);
+        imageView.setScaleType(ImageView.ScaleType.CENTER);
+        containner.removeAllViews();
+
+        ViewGroup.LayoutParams  imageViewlp = new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.MATCH_PARENT);
+        containner.addView(imageView ,imageViewlp);
+        try {
+            effectBitmap = original.copy(Bitmap.Config.ARGB_8888, true);
+        } catch (OutOfMemoryError err) {
+            ZebraLog.e(TAG, "initUI", err);
+            return;
+        }
+        imageView.setDisplayType(ZoomableImageViewBase.DisplayType.FIT_TO_SCREEN);
+        imageView.setOnDrawListener(this);
+        initDisplay(effectBitmap);
+        mCurTab = R.id.doodle_red_btn;//TAB_DRAW;
+
+        ViewGroup  effectLayout= (ViewGroup) photoEffectActivity.getLayoutInflater().inflate(R.layout.layout_effect_doodle,null);
+        effecrContainer.addView(effectLayout);
+
+
+
+        int screenWidth =containner.getResources().getDisplayMetrics().widthPixels;
+        int colorSize = containner.getResources().getDimensionPixelSize(R.dimen.zebra_doodle_color_size);
+        int margin = (int) ((screenWidth - 6* colorSize) / 6.5);
+
+
+        mUndoBtn = (ImageView) effectLayout.findViewById(R.id.doodle_undo_btn);
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)mUndoBtn.getLayoutParams();
+        lp.leftMargin = margin;
+        mUndoBtn.setLayoutParams(lp);
+        mUndoBtn.setEnabled(false);
+        mUndoBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+//				DataReport.doodleOptHandle();
+                imageView.unDo();
+                if(!imageView.hasDrawed()) {
+                    mUndoBtn.setEnabled(false);
+                }
+                if(mCurTab == R.id.doodle_mosaic_btn) {
+                    initMosaicPaint();
+                }
+            }
+        });
+
+        mEraserBtn = (ImageView) effectLayout.findViewById(R.id.doodle_eraser_btn);
+        lp = (LinearLayout.LayoutParams)mEraserBtn.getLayoutParams();
+        lp.leftMargin = margin;
+        mEraserBtn.setLayoutParams(lp);
+        mEraserBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+                mPaint.setAlpha(0);
+                mPaint.setStrokeWidth(eraserSize);
+                mPaint.setShader(null);
+                updatePaint();
+                setFocusBg(v.getId());
+            }
+        });
+        mPenList.add(mEraserBtn);
+
+        mMosaicPenBtn = (ImageView) effectLayout.findViewById(R.id.doodle_mosaic_btn);
+        lp = (LinearLayout.LayoutParams)mMosaicPenBtn.getLayoutParams();
+        lp.leftMargin = margin;
+        mMosaicPenBtn.setLayoutParams(lp);
+        mMosaicPenBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+//				color = 0xb00ecd;
+//				mPaint.setColor(color);
+//				mPaint.setAlpha(255);
+//				mPaint.setXfermode(null);
+//				mPaint.setStrokeWidth(penSize);
+//				updatePaint();
+                if(mCurTab == R.id.doodle_mosaic_btn) {
+                    return;
+                }
+                initMosaicPaint();
+                setFocusBg(v.getId());
+            }
+        });
+        mPenList.add(mMosaicPenBtn);
+
+        mRedPenBtn = (ImageView) effectLayout.findViewById(R.id.doodle_red_btn);
+        lp = (LinearLayout.LayoutParams)mRedPenBtn.getLayoutParams();
+        lp.leftMargin = margin;
+        mRedPenBtn.setLayoutParams(lp);
+        mRedPenBtn.setBackgroundResource(R.drawable.zebra_eraser_sel_bg);
+        mRedPenBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mPaint == null) {
+                    return;
+                }
+                color = 0xf93021;
+                mPaint.setColor(color);
+                mPaint.setAlpha(255);
+                mPaint.setXfermode(null);
+                mPaint.setStrokeWidth(penSize);
+                mPaint.setShader(null);
+                updatePaint();
+                setFocusBg(v.getId());
+            }
+        });
+        mPenList.add(mRedPenBtn);
+        setFocusBg(R.id.doodle_red_btn);
+        mOrangePenBtn = (ImageView) effectLayout.findViewById(R.id.doodle_orange_btn);
+        lp = (LinearLayout.LayoutParams)mOrangePenBtn.getLayoutParams();
+        lp.leftMargin = margin;
+        mOrangePenBtn.setLayoutParams(lp);
+        mOrangePenBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mPaint == null) {
+                    return;
+                }
+                color = 0xfd7f32;
+                mPaint.setColor(color);
+                mPaint.setAlpha(255);
+                mPaint.setXfermode(null);
+                mPaint.setStrokeWidth(penSize);
+                mPaint.setShader(null);
+                updatePaint();
+                setFocusBg(v.getId());
+            }
+        });
+        mPenList.add(mOrangePenBtn);
+
+        mYellowPenBtn = (ImageView) effectLayout.findViewById(R.id.doodle_yellow_btn);
+        lp = (LinearLayout.LayoutParams)mYellowPenBtn.getLayoutParams();
+        lp.leftMargin = margin;
+        mYellowPenBtn.setLayoutParams(lp);
+        mYellowPenBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mPaint == null) {
+                    return;
+                }
+                color = 0xffe00d;
+                mPaint.setColor(color);
+                mPaint.setAlpha(255);
+                mPaint.setXfermode(null);
+                mPaint.setStrokeWidth(penSize);
+                mPaint.setShader(null);
+                updatePaint();
+                setFocusBg(v.getId());
+            }
+        });
+        mPenList.add(mYellowPenBtn);
+
+        mGreenPenBtn = (ImageView) effectLayout.findViewById(R.id.doodle_green_btn);
+        lp = (LinearLayout.LayoutParams)mGreenPenBtn.getLayoutParams();
+        lp.leftMargin = margin;
+        mGreenPenBtn.setLayoutParams(lp);
+        mGreenPenBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mPaint == null) {
+                    return;
+                }
+                color = 0x85e81b;
+                mPaint.setColor(color);
+                mPaint.setAlpha(255);
+                mPaint.setXfermode(null);
+                mPaint.setStrokeWidth(penSize);
+                mPaint.setShader(null);
+                updatePaint();
+                setFocusBg(v.getId());
+            }
+        });
+        mPenList.add(mGreenPenBtn);
+
+        mBluePenBtn = (ImageView) effectLayout.findViewById(R.id.doodle_blue_btn);
+        lp = (LinearLayout.LayoutParams)mBluePenBtn.getLayoutParams();
+        lp.leftMargin = margin;
+        mBluePenBtn.setLayoutParams(lp);
+        mBluePenBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mPaint == null) {
+                    return;
+                }
+                color = 0x1792f9;
+                mPaint.setColor(color);
+                mPaint.setAlpha(255);
+                mPaint.setXfermode(null);
+                mPaint.setStrokeWidth(penSize);
+                mPaint.setShader(null);
+                updatePaint();
+                setFocusBg(v.getId());
+            }
+        });
+        mPenList.add(mBluePenBtn);
+
+        mPinkPenBtn = (ImageView) effectLayout.findViewById(R.id.doodle_pink_btn);
+        lp = (LinearLayout.LayoutParams)mPinkPenBtn.getLayoutParams();
+        lp.leftMargin = margin;
+        lp.rightMargin = margin;
+        mPinkPenBtn.setLayoutParams(lp);
+        mPinkPenBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mPaint == null) {
+                    return;
+                }
+                color = 0xb00ecd;
+                mPaint.setColor(color);
+                mPaint.setAlpha(255);
+                mPaint.setXfermode(null);
+                mPaint.setStrokeWidth(penSize);
+                mPaint.setShader(null);
+                updatePaint();
+                setFocusBg(v.getId());
+            }
+        });
+        mPenList.add(mPinkPenBtn);
+
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                initPaint();
+            }
+        }, 500);
+
+        imageView.setOnDrawStartListener(new DrawableImageView.OnDrawStartListener() {
+            @Override
+            public void onDrawStart() {
+            }
+            @Override
+            public void onDrawbleContentChange() {
+                hasEdit = true;
+            }
+        });
+
+    }
+    @Override
+    public void recyleImage() {
+        super.recyleImage();
+        mPenList.clear();
+        if (effectBitmap != null && !effectBitmap.isRecycled()&&imageView !=null){
+            imageView.setImageBitmap(null);
+            effectBitmap.recycle();
+            effectBitmap = null;
+        }
+        if (null != original && !original.isRecycled()) {
+            original.recycle();
+            original = null;
+        }
+        if(mProgressDialog != null&&mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+        System.gc();
+    }
+
+
+
+    private void setFocusBg(int btnId) {
+        for(View view : mPenList) {
+            if(view.getId() == btnId) {
+                mCurTab = btnId;
+                if(btnId == R.id.doodle_eraser_btn ||
+                        btnId == R.id.doodle_mosaic_btn ||
+                        btnId == R.id.doodle_undo_btn ) {
+                    view.setPressed(true);
+                    view.setSelected(true);
+                } else {
+//                    view.setBackgroundResource(R.drawable.zebra_eraser_sel_bg);
+                    view.setBackgroundResource(R.drawable.doodle_selected_bg);
+                }
+            } else {
+                view.setBackgroundResource(0);
+                view.setSelected(false);
+            }
+        }
+    }
+//    TODO
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        rect = new Rect();
+//    }
+
+
+    private float colorSeekBarStepWidth;
+    private Rect rect;
+    private int mX;
+    private int mY;
+    // final int[] seekBarLocation = new int[2];
+    private View bubbleLayout;
+    private View bubbleBg;
+    private WindowManager windowManager;
+    private WindowManager.LayoutParams windowParams;
+    private final static int OFFSET_SPACE = 8;
+
+//	public void startMove(int color, int x, int y) {
+//		stopMove();
+//		windowParams = new WindowManager.LayoutParams();
+//		windowParams.gravity = Gravity.LEFT | Gravity.TOP;
+//		windowParams.x = x - OFFSET_SPACE;
+//		windowParams.y = y;
+//		windowParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+//		windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+//		windowParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+//				| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//				| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+//				| WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+//		windowParams.format = PixelFormat.TRANSLUCENT;
+//		windowParams.windowAnimations = 0;
+//
+//		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+//		View layout = inflater.inflate(R.layout.zebra_color_bubble, null);
+//		bubbleBg = layout.findViewById(R.id.bubble_bg);
+//		bubbleBg.setBackgroundColor(color);
+//		windowManager = (WindowManager) this.getSystemService("window");
+//		windowManager.addView(layout, windowParams);
+//		bubbleLayout = layout;
+//	}
+
+    private void initDisplay(Bitmap bmp) {
+        if (null == imageMatrix) {
+            imageMatrix = new Matrix();
+        }
+        imageView.setImageBitmap(bmp, imageMatrix.isIdentity() ? null
+                        : imageMatrix, ZoomableImageViewBase.ZOOM_INVALID,
+                ZoomableImageViewBase.ZOOM_INVALID);
+        imageView.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * initialize the paint.
+     */
+    private void initMosaicPaint() {
+        if (mPaint == null) {
+            return;
+        }
+        mPaint.setXfermode(null);
+        mPaint.setStrokeWidth(45);
+
+
+        Bitmap xx = null;
+        try {
+            xx = Bitmap.createBitmap(original.getWidth(), original.getHeight(), Bitmap.Config.RGB_565);// .ARGB_8888);
+        } catch (OutOfMemoryError err) {
+            ZebraLog.e(TAG, "initMosaicPaint", err);
+            return;
+        }
+        Canvas s = new Canvas(xx);
+//		Rect src = new Rect(0,0, bit.getWidth(), bit.getHeight());
+//		Rect des = new Rect(0,0, original.getWidth(), original.getHeight());
+//		s.drawBitmap(bit, src, des, null);
+//		s.drawBitmap(bitdoodle, src, des, null);
+        s.drawBitmap(original, new Matrix(), null);
+        s.drawBitmap(imageView.getOverlayBitmap(), new Matrix(), null);
+//		bit.recycle();
+//		bitdoodle.recycle();
+        int blur = Math.min(original.getWidth(), original.getHeight()) / 28;
+        convert(xx, blur);
+//		if(mShaderBitmap != null && !mShaderBitmap.isRecycled()) {
+//			mShaderBitmap.recycle();
+//			mShaderBitmap = null;
+//		}
+
+        Bitmap mosaicBitmap = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight(), Bitmap.Config.RGB_565);//.ARGB_8888);
+        Canvas s2 = new Canvas(mosaicBitmap);
+        s2.drawBitmap(xx, imageView.getImageMatrix(), null);
+        xx.recycle();
+
+        BitmapShader shader = new BitmapShader(mosaicBitmap, Shader.TileMode.CLAMP,Shader.TileMode.CLAMP);
+        mPaint.setShader(shader);
+        mPaint.setAlpha(255);
+
+        updatePaint();
+    }
+
+    // convert original bitmap to mosaic
+    private void convert(Bitmap bit, int blur) {
+//		int [] pixels = new int[original.getWidth() * original.getHeight()];
+//		original.getPixels(pixels, 0, original.getWidth(), 0, 0, original.getWidth(), original.getHeight());
+//		for(int i = 0; i < original.getHeight(); i ++) {
+//			for(int j = 0; j < original.getWidth(); j++) {
+//				pixels[i * original.getWidth() + j] = 0xFF000000 | (255 << 16) | (0 << 8) | 0;//0xFFFF0000;
+//			}
+//		}
+//		bit.setPixels(pixels, 0, original.getWidth(), 0, 0, original.getWidth(), original.getHeight());
+//		int [] pixels = new int[original.getWidth() * original.getHeight()];
+//		bit.getPixels(pixels, 0, original.getWidth(), 0, 0, original.getWidth(), original.getHeight());
+        int [] pixels = new int[blur * blur];
+
+        int hBlock = original.getHeight() / blur;
+        int wBlock = original.getWidth() / blur;
+
+        int restH = original.getHeight() % blur;
+        int restW = original.getWidth() % blur;
+
+        for(int i = 0; i < hBlock; i ++) {
+            for(int j = 0; j < wBlock; j++) {
+                int YY = i * blur;
+                int XX = j * blur;
+                int R = 0;
+                int G = 0;
+                int B = 0;
+                bit.getPixels(pixels, 0, blur, XX, YY, blur, blur);
+                for(int y = 0; y < blur; y++) {
+                    for(int x = 0; x < blur; x++) {
+//						int color = pixels[YY * original.getWidth() + y * original.getWidth() + XX + x];
+                        int color = pixels[y * blur + x];
+                        R += (color >> 16) & 0xFF;
+                        G += (color >> 8) & 0xFF;
+                        B += color & 0xFF;
+                    }
+                }
+                R = R / blur / blur;
+                G = G / blur / blur;
+                B = B / blur / blur;
+                for(int y = 0; y < blur; y++) {
+                    for(int x = 0; x < blur; x++) {
+//						pixels[YY * original.getWidth() + y * original.getWidth() + XX + x] = 0xFF000000 | (R << 16) | (G << 8) | B;
+                        pixels[y * blur + x] = 0xFF000000 | (R << 16) | (G << 8) | B;
+                    }
+                }
+                bit.setPixels(pixels, 0, blur, XX, YY, blur, blur);
+            }
+        }
+
+        if(restW > 0) {
+            for(int i = 0; i < hBlock; i++) {
+                int YY = i * blur;
+                int XX = wBlock * blur;
+                int R = 0;
+                int G = 0;
+                int B = 0;
+                for(int y = 0; y < blur; y++) {
+                    for(int x = 0; x < restW; x++) {
+//						int color = pixels[YY * original.getWidth() + y * original.getWidth() + XX + x];
+                        int color = bit.getPixel(XX + x, YY + y);
+                        R += (color >> 16) & 0xFF;
+                        G += (color >> 8) & 0xFF;
+                        B += color & 0xFF;
+                    }
+                }
+                R = R / blur / restW;
+                G = G / blur / restW;
+                B = B / blur / restW;
+                for(int y = 0; y < blur; y++) {
+                    for(int x = 0; x < restW; x++) {
+//						pixels[YY * original.getWidth() + y * original.getWidth() + XX + x] = 0xFF000000 | (R << 16) | (G << 8) | B;
+                        bit.setPixel(XX + x, YY + y, 0xFF000000 | (R << 16) | (G << 8) | B);
+                    }
+                }
+            }
+        }
+
+        if(restH > 0) {
+            for(int j = 0; j < wBlock; j++) {
+                int YY = hBlock * blur;
+                int XX = j * blur;
+                int R = 0;
+                int G = 0;
+                int B = 0;
+                for(int y = 0; y < restH; y++) {
+                    for(int x = 0; x < blur; x++) {
+//						int color = pixels[YY * original.getWidth() + y * original.getWidth() + XX + x];
+                        int color = bit.getPixel(XX + x, YY + y);
+                        R += (color >> 16) & 0xFF;
+                        G += (color >> 8) & 0xFF;
+                        B += color & 0xFF;
+                    }
+                }
+                R = R / blur / restH;
+                G = G / blur / restH;
+                B = B / blur / restH;
+                for(int y = 0; y < restH; y++) {
+                    for(int x = 0; x < blur; x++) {
+//						pixels[YY * original.getWidth() + y * original.getWidth() + XX + x] = 0xFF000000 | (R << 16) | (G << 8) | B;
+                        bit.setPixel(XX + x, YY + y, 0xFF000000 | (R << 16) | (G << 8) | B);
+                    }
+                }
+            }
+        }
+//		bit.setPixels(pixels, 0, original.getWidth(), 0, 0, original.getWidth(), original.getHeight());
+    }
+
+    private void initPaint() {
+        mPaint = new Paint(/*Paint.ANTI_ALIAS_FLAG*/);
+        mPaint.setAntiAlias(true);
+        mPaint.setFilterBitmap(true);
+        mPaint.setDither(true);
+        mPaint.setColor(color);
+        mPaint.setStrokeWidth(penSize);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+
+        mPaint.setAlpha(255);
+//		mPaint.setXfermode(null);
+//		mPaint.setStrokeWidth(penSize);
+        updatePaint();
+    }
+
+    private void updatePaint() {
+        if(imageView != null) {
+            imageView.setPaint(mPaint);
+        }
+    }
+
+
+
+
+    private void showWarningDialog() {
+
+        try {
+            View.OnClickListener posBtnListener = new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    recyleImage();
+//                  setResult(RESULT_CANCELED);
+//                  DoodleActivity.this.finish();
+                    setResultCancel();
+                }
+            };
+            Dialog dialog = ZebraCustomDialog.newCustomDialog(getThisActivity(),
+                    getThisActivity().getString(R.string.zebra_tips),  getThisActivity().getString(R.string.zebra_doodle_canceltips),
+                    getThisActivity().getString(R.string.zebra_doodle_confirm), posBtnListener,
+                    getThisActivity().getString(R.string.zebra_doodle_cancel), null);
+            dialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onDrawStart() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onDrawEnd() {
+        // TODO Auto-generated method stub
+        if(imageView.hasDrawed()) {
+            mUndoBtn.setEnabled(true);
+        } else {
+            mUndoBtn.setEnabled(false);
+        }
+    }
+
+    //TODO
+//    @Override
+//    public void finish() {
+//        if (imageView != null && imageView.didScaleHappen()) {
+//            ReportUtils.report("CliOper", "", "", "Pic_edit", "Zoom_graffiti", 0, 0, "", "", "", "");
+//        }
+//        getThisActivity().finish();
+//    }
+
+//	@Override
+//	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//		super.onActivityResult(requestCode, resultCode, data);
+//		PluginProxy.onSendResult(getOutActivity(), requestCode, resultCode, data, false);
+//	}
+
+    private void setResultCancel() {
+//        if(isFromCrop) {
+//            setResult(RESULT_CANCELED);
+//            DoodleActivity.this.finish();
+//        } else {
+//            ZebraPluginProxy.backToPhoto(getIntent(), getOutActivity());
+//        }
+    }
+
+    @Override
+    public void onZoomEnd() {
+        // TODO Auto-generated method stub
+        if(mCurTab == R.id.doodle_mosaic_btn) {
+            initMosaicPaint();
+        }
+    }
+
+    protected void dealResult(final Bitmap bitmap, final boolean forCache){
+//        Util.startBackgroundJob(this, null, getString(R.string.zebra_dealing), new Runnable() {
+//            public void run() {
+//                if (getThisActivity().isInvokedByOtherApp) {
+//                    callbackInvokingApp(bitmap);
+//                } else {
+//                    saveOutput(bitmap, forCache);
+//                }
+//            }
+//        }, mHandler);
+    }
+
+    @Override
+    public void initEffect() {
+        super.initEffect();
+    }
+
+    @Override
+    public void showEffect() {
+        super.showEffect();
+//        ReportUtils.report("CliOper", "", "", "Pic_edit", "Clk_graffiti", 0, 0, "", "", "", "");
+
+
+        ZebraLog.d("zebra", "DoodleActivity onCreate beedit = " + beedit);
+        handler.sendEmptyMessage(SHOW_DLG);
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                original =  effectBitmap;
+                if (original == null) {
+                    Util.Size size = Util.getBmpSize(mPath);
+                    if (size == null || size.height < 64 || size.width < 64) {
+                        handler.sendEmptyMessage(TOOSMALL_EXIT);
+                        return;
+                    }
+                    int[] result = new int[1];
+                    original = Util.getOrResizeBitmap(mPath, true, result);
+                    if (original == null) {
+                        if (result[0] == -2) {
+                            handler.sendEmptyMessage(NOT_ENOUGH_MEMORY_EXIT);
+                        } else {
+                            handler.sendEmptyMessage(FAIL_EXIT);
+                        }
+                    }
+                    else {
+                        handler.sendEmptyMessage(INIT_UI);
+                    }
+                } else {
+                    handler.sendEmptyMessage(INIT_UI);
+                }
+            }
+
+        }).start();
+
+    }
+
+    @Override
+    public void hide() {
+        hasEdit = false;
+        super.hide();
+        if(effecrContainer != null) {
+           effecrContainer.removeAllViews();
+        }
+         containner.removeAllViews();
+        color = 0xf93021;
+        imageView = null;
+
+    }
+
+    @Override
+    public Bitmap getEffectBitmap() {
+          super.getEffectBitmap();
+        if(imageView!=null) {
+            effectBitmap = imageView.commit();
+        }
+        return effectBitmap;
+    }
+
+    @Override
+    public void confirm(View btnConfrime) {
+        super.confirm(btnConfrime);
+      /*  new Thread(){
+            @Override
+            public void run() { 
+                super.run();*/
+                Log.e("debug", "saving:" + saving);
+                if(saving == false) {
+                    saving = true;
+                    uiHandler.sendEmptyMessage(SHOW_DLG);
+                    mPath = Util.saveOutput(photoEffectActivity, mPath, getEffectBitmap(), true);
+                    
+                    uiHandler.sendEmptyMessageDelayed(DISMISS_DLG, 300);
+                    saving = false;
+                    ArrayList<String> paths = new ArrayList<String>();
+                    paths.add(mPath);
+                    Log.e("debug","confime save"+mPath);
+                    //TODO
+                    ZebraPluginProxy.sendPhotoForPhotoPlus(getThisActivity(), getThisActivity().getIntent(),
+                            paths);
+                    photoEffectActivity.finish();
+                }
+        /*    }
+        }.start();*/
+
+    }
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- HorizontalButtonView attributes begin -->
+    <declare-styleable name="HorizontalButtonView">
+        <!-- The name of all buttons -->
+        <attr name="itemLayoutId" format="reference" />
+
+        <!-- The name of all buttons -->
+        <attr name="btnTextArray" format="reference" />
+        <!-- The corresponding image for each button -->
+        <attr name="btnImageArray" format="reference" />
+        <!-- The id of each button -->
+        <attr name="btnIdArray" format="reference" />
+        <!-- leftMargin 和 rightMargin 作用于ScrollView里面的Layout，设置对应的左右Margin -->
+        <attr name="leftMargin" format="reference|dimension" />
+        <attr name="rightMargin" format="reference|dimension" />
+        <attr name="btnWidth" format="reference|dimension" />
+        <attr name="btnHeight" format="reference|dimension" />
+        <attr name="android:gravity" />
+        <attr name="horizontalSpace" format="reference|dimension" />
+        <attr name="distribute" format="boolean" />
+    </declare-styleable>
+    <!-- HorizontalButtonView attributes end -->
+
+    <attr name="filterBar" format="reference" />
+</resources>

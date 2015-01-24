@@ -1,0 +1,112 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tencent.photoplus"
+    android:versionCode="17"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
+    <!-- RQD可选权限：-->
+    <!--异常上报时，如果拥有该权限，则会上报系统日志log.txt，否则只有异常的堆栈信息。-->
+	<uses-permission android:name="android.permission.READ_LOGS"/>  
+     
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+		<!--<activity-->
+			    <!--android:name="com.tencent.zebra.ui.DemoActivity"-->
+			    <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+			    <!--android:screenOrientation="portrait"-->
+			    <!--android:theme="@style/zebra_NoAnimationTheme"-->
+			    <!--android:windowSoftInputMode="adjustPan">-->
+		    <!--<intent-filter>-->
+			    <!--<action android:name="android.intent.action.MAIN" />-->
+			    <!--<category android:name="android.intent.category.LAUNCHER" />-->
+		    <!--</intent-filter>-->
+	    <!--</activity>-->
+
+        <!--<activity-->
+            <!--android:name="com.tencent.zebra.doodle.PhotoEffectActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/zebra_NoAnimationTheme"-->
+            <!--android:windowSoftInputMode="adjustPan">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <!--<activity-->
+            <!--android:name="com.tencent.zebra.doodle.PickPicureActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/zebra_NoAnimationTheme"-->
+            <!--android:windowSoftInputMode="adjustPan">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <activity
+            android:name="com.tencent.zebra.ui.DemoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/zebra_NoAnimationTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.tencent.zebra.doodle.PhotoEffectActivity"
+            android:exported="true"
+            android:process=":zebra"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+
+
+        <activity
+            android:name="com.tencent.zebra.doodle.DoodleActivity"
+            android:exported="true"
+            android:process=":zebra"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.tencent.zebra.crop.CropImageActivity"
+            android:exported="false"
+            android:process=":zebra"
+            android:screenOrientation="portrait"
+            android:theme="@style/zebra_NoAnimationTheme" >
+        </activity>
+        <!--<activity-->
+            <!--android:name="com.tencent.zebra.doodle.PhotoEffectActivity"-->
+            <!--android:exported="false"-->
+            <!--android:process=":zebra"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/zebra_NoAnimationTheme" >-->
+        <!--</activity>-->
+        <activity
+            android:name="com.tencent.zebra.doodle.MyActivity"
+            android:exported="false"
+            android:process=":zebra"
+            android:screenOrientation="portrait"
+            android:theme="@style/zebra_NoAnimationTheme" >
+        </activity>
+
+    </application>
+
+</manifest>

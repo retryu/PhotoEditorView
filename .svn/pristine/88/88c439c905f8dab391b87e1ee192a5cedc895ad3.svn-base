@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="zebra_send_pic">發送</string>
+    <string name="zebra_cut_pic">裁剪</string>
+    <string name="zebra_doodle_pic">塗鴉</string>
+    
+    <string name="zebra_smallpic_tip">圖片尺寸過小，無法處理</string>
+    <string name="zebra_doodle_confirm">確定</string>
+    <string name="zebra_doodle_cancel">取消</string>
+    <string name="zebra_doodle_canceltips">對圖片的編輯將不被保存，確認退出嗎？</string>
+    
+    <string name="zebra_nav_bar_cancel">取消</string>
+    
+    <string name="zebra_choose_picture">選擇照片</string>
+    <string name="zebra_not_find_picture">沒有找到圖片</string>
+    <string name="zebra_file_not_exsit_or_unvalid">圖片不存在或格式不支持</string>
+    <string name="zebra_not_enough_memory">記憶體不足，無法處理照片</string>
+    
+    <string name="zebra_dealing">正在處理</string>
+    <string name="zebra_loading">載入中</string>
+    <string name="zebra_tips">提示</string>
+    
+    <string name="zebra_crop_failed">剪裁失敗，請重試</string>
+    
+</resources>

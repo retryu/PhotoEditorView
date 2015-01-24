@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialogRoot"
+    android:layout_width="310dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/qcamer_zebra_common_alert_bg" >
+    <TextView
+        android:id="@+id/dialogText"
+        android:layout_below="@+id/dialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/dialogTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_alignLeft="@+id/dialogText"
+        android:layout_alignRight="@+id/dialogText"
+        android:layout_alignParentTop="true"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+    <View 
+          android:id="@+id/dialogDivider"
+          android:layout_below="@+id/dialogText"
+          android:layout_width="match_parent"
+          android:layout_height="1px"
+          android:background="@color/dialog_gray"
+          />
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialogDivider"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/dialogLeftBtn"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/qcamer_zebra_common_dialog_btn_left"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/dialog_blue"
+            android:textSize="16sp" />
+        <View android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/dialog_gray"
+            />
+        <TextView
+            android:id="@+id/dialogRightBtn"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/qcamer_zebra_common_dialog_btn_right"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/dialog_blue"
+            android:textSize="16sp" />
+    </LinearLayout>
+</RelativeLayout><!-- From: file:/Users/retryu/photoplugs/res/layout/qcamer_zebra_custom_dialog.xml -->

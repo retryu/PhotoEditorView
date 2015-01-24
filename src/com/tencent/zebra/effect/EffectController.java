@@ -1,0 +1,220 @@
+package com.tencent.zebra.effect;
+
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+
+import com.tencent.photoplus.R;
+import com.tencent.view.FilterDefault;
+import com.tencent.zebra.doodle.DoodleEffect;
+import com.tencent.zebra.filter.FilterEffect;
+
+/**
+ * Version 1.0
+ * <p/>
+ * <p/>
+ * Date: 2014-09-24 19:51
+ * Author: retryu
+ * <p/>
+ * <p/>
+ * Copyright © 1998-2014 Tencent Technology (Shenzhen) Company Ltd.
+ */
+public class EffectController implements View.OnClickListener {
+
+
+    public enum effectType {CROP, DOODLE, FILTER} ;
+
+    private CropEffect cropEffect;
+    private DoodleEffect doodleEffect;
+    private FilterEffect filterEffect;
+    private String mPath;
+    effectType currentType;
+    public Button btnCancel;
+    public Button btnConfirm;
+    ImageButton btnDoodle;
+    ImageButton btnCrop;
+    ImageButton btnFilter;
+    private  PhotoEffectActivity  photoEffectActivity;
+
+    public EffectController(PhotoEffectActivity activity, ViewGroup iamgeContainer, ViewGroup effectLayout, ViewGroup effectTab, String path) {
+        mPath = path;
+        if(mPath == null){
+            mPath="/storage/emulated/0/DCIM/Camera/a.jpg";
+        }
+        photoEffectActivity = activity;
+//        mPath = "/storage/emulated/0/sina/weibo/weibo/img-e7759951c02f7a4f98038709bc109d13.jpg";
+//        mPath = "/storage/emulated/0/Download/a.jpg";
+//        mPath="/storage/emulated/0/DCIM/Camera/a.jpg";
+//        mPath="/mnt/sdcard/Pictures/netease/newsreader/1.jpg";
+//        mPath = "/storage/sdcard0/DCIM/Camera/2.jpg";
+        cropEffect = new CropEffect(activity, iamgeContainer, effectLayout, mPath);
+        doodleEffect = new DoodleEffect(activity, iamgeContainer, effectLayout, mPath);
+        filterEffect = new FilterEffect(activity, iamgeContainer, effectLayout, mPath);
+        filterEffect.controller = this;
+        btnDoodle = (ImageButton) effectTab.findViewById(R.id.btn_doodle);
+        btnCrop = (ImageButton) effectTab.findViewById(R.id.btn_rotate);
+        btnFilter = (ImageButton) effectTab.findViewById(R.id.btn_filter);
+        btnDoodle.setOnClickListener(this);
+        btnCrop.setOnClickListener(this);
+        btnFilter.setOnClickListener(this);
+        setCurrentTab(R.id.btn_doodle);
+
+    }
+
+    public  void  updateImageFromPath(String  path){
+        if(cropEffect != null && doodleEffect!= null && filterEffect != null) {
+            cropEffect.recyleImage();
+            doodleEffect.recyleImage();
+            filterEffect.recyleImage();
+        }
+        filterEffect.loadBitmapFromPath(path);
+    }
+
+    /**
+     * 重新设置滤镜效果
+     */
+    public void resetFilterPostion(){
+        if(filterEffect != null){
+            filterEffect.resetFilterPosition();
+        }
+
+    }
+    public  void  updateControllerPath(String path) {
+        if (cropEffect != null && doodleEffect != null && filterEffect != null) {
+            cropEffect.mPath = path;
+            filterEffect.mPath = path;
+            doodleEffect.mPath = path;
+        }
+    }
+
+
+    /**
+     * 绑定发送和取消按钮
+     * @param btnConfirm
+     * @param btnCancel
+     */
+    public void bindConfirm(Button btnConfirm, Button btnCancel) {
+        this.btnConfirm = btnConfirm;
+        this.btnCancel = btnCancel;
+        cropEffect.btnCancel = btnCancel;
+        cropEffect.btnConfirm = btnConfirm;
+    }
+
+
+    /**
+     *  获取当前的Effect
+     * @return
+     */
+    public effectType getCurrentType() {
+        return currentType;
+    }
+
+    public Effects getEffect() {
+        if (currentType == effectType.CROP) {
+            return cropEffect;
+        } else if (currentType == effectType.DOODLE) {
+            return doodleEffect;
+        } else if (currentType == effectType.FILTER) {
+            return filterEffect;
+        }
+        return null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.btn_rotate:
+                if (currentType == effectType.CROP) {
+                    break;
+                }
+                resetTabs();
+                btnCrop.setSelected(true);
+                selectEffect(cropEffect);
+                currentType = effectType.CROP;
+                FilterDefault.main_Context = null;
+                break;
+            case R.id.btn_doodle:
+                if (currentType == effectType.DOODLE) {
+                    break;
+                }
+                resetTabs();
+                btnDoodle.setSelected(true);
+                selectEffect(doodleEffect);
+                currentType = effectType.DOODLE;
+                FilterDefault.main_Context = null;
+                break;
+            case R.id.btn_filter:
+                if (currentType == effectType.FILTER) {
+                    break;
+                }
+                resetTabs();
+                btnFilter.setSelected(true);
+                selectEffect(filterEffect);
+                currentType = effectType.FILTER;
+                FilterDefault.main_Context = photoEffectActivity;
+                FilterDefault.ENABLE＿ASSERT = true;
+            	Log.e("EffectController", " FilterDefault.ENABLE＿ASSERT  true" );
+                break;
+        }
+    }
+
+    /**
+     * 更具当前按钮ID 是指当前Tab和Effect
+     * @param id
+     */
+    public void setCurrentTab(int id) {
+        resetTabs();
+        switch (id) {
+            case R.id.btn_doodle:
+                btnDoodle.setSelected(true);
+                currentType = effectType.DOODLE;
+                selectEffect(doodleEffect);
+               
+                break;
+
+            case R.id.btn_rotate:
+                btnCrop.setSelected(true);
+                currentType = effectType.CROP;
+                selectEffect(cropEffect);
+                break;
+            case R.id.btn_filter:
+                btnFilter.setSelected(true);
+                currentType = effectType.FILTER;
+                selectEffect(filterEffect);
+                FilterDefault.main_Context = photoEffectActivity;
+
+
+                break;
+        }
+    }
+
+    /**
+     * 重置ab
+     */
+    public void resetTabs() {
+        btnCrop.setSelected(false);
+        btnDoodle.setSelected(false);
+        btnFilter.setSelected(false);
+    }
+
+    /**
+     * 设置当前的Tab
+     * @param effects
+     */
+    public void selectEffect(Effects effects) {
+        Effects currentEffect = getEffect();
+        if (currentEffect != null && currentEffect != effects) {
+            effects.effectBitmap = currentEffect.getEffectBitmap();
+            currentEffect.hide();
+        }
+        effects.showEffect();
+        if(btnConfirm != null) {
+            btnConfirm.setText(R.string.zebra_send_pic);
+        }
+    }
+
+
+}

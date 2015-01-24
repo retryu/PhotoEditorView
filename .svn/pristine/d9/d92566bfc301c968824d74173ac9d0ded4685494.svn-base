@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ff222222"
+    android:orientation="vertical" >
+
+    <AbsoluteLayout
+        android:id="@+id/image_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#000"
+        android:layout_weight="1" />
+
+<!--         <ImageView
+            android:id="@+id/image_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter" >
+        </ImageView> 
+        
+    </AbsoluteLayout>-->
+
+    <LinearLayout
+        android:id="@+id/crop_bottom_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/crop_cancel"
+            android:background="@color/zebra_transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="20sp"
+            android:layout_marginLeft="15dp"
+            android:text="@string/zebra_nav_bar_cancel"
+            android:textColor="#0079FF">
+        </Button>
+
+         <ImageButton
+            android:id="@+id/btn_rotate"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/zebra_btn_common_nav_bg"
+            android:src="@drawable/zebra_rotate_left" />
+         
+        <ImageButton
+            android:id="@+id/btn_doodle"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/zebra_btn_common_nav_bg"
+            android:src="@drawable/zebra_rotate_right" />
+
+<!--         <ImageButton
+            android:id="@+id/ratio"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/zebra_btn_common_nav_bg"
+            android:src="@drawable/zebra_four_three" /> -->
+
+        <Button
+            android:id="@+id/crop_confirm"
+            android:background="@color/zebra_transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="20sp"
+            android:layout_marginRight="15dp"
+            android:text="@string/zebra_send_pic"
+            android:textColor="#0079FF">
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>

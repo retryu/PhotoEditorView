@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="btn_opration_normal">#0079FF</color>
+    <color name="btn_opration_pressed">#880079FF</color>
+    <color name="filter_text_color">#ffffff</color>
+    <color name="filter_bg_color">#000000</color>
+</resources>

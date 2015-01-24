@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="zebra_send_pic">Send</string>
+    <string name="zebra_cut_pic">Crop</string>
+    <string name="zebra_doodle_pic">Graffiti</string>
+    
+    <string name="zebra_smallpic_tip">The picture is too small to be processed</string>
+    <string name="zebra_doodle_confirm">OK</string>
+    <string name="zebra_doodle_cancel">Cancel</string>
+    <string name="zebra_doodle_canceltips">The edited picture will not be saved. Do you really want to exit?</string>
+    
+    <string name="zebra_nav_bar_cancel">Cancel</string>
+    
+    <string name="zebra_choose_picture">Select Photo</string>
+    <string name="zebra_not_find_picture">The picture is not found</string>
+    <string name="zebra_file_not_exsit_or_unvalid">Picture does not exist or its format is not supported</string>
+    <string name="zebra_not_enough_memory">Insufficient memory, cannot process picture</string>
+    
+    <string name="zebra_dealing">Processing</string>
+    <string name="zebra_loading">Loading</string>
+    <string name="zebra_tips">Reminder</string>
+    
+    <string name="zebra_crop_failed">Error, please try again</string>
+    
+</resources>

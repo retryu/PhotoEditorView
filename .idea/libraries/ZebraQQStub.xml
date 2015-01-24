@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ZebraQQStub">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/ZebraQQStub.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="zebra_send_pic">送信</string>
+    <string name="zebra_cut_pic">トリム</string>
+    <string name="zebra_doodle_pic">落書き</string>
+    
+    <string name="zebra_smallpic_tip">画像を処理するには小さすぎる</string>
+    <string name="zebra_doodle_confirm">OK</string>
+    <string name="zebra_doodle_cancel">取り消し</string>
+    <string name="zebra_doodle_canceltips">編集した画像は保存されません。あなたが本当に終了しますか？</string>
+    
+    <string name="zebra_nav_bar_cancel">取り消し</string>
+    
+    <string name="zebra_choose_picture">写真の選択</string>
+    <string name="zebra_not_find_picture">画像が見つからない</string>
+    <string name="zebra_file_not_exsit_or_unvalid">絵が存在しないか、そのフォーマットがサポートされていません</string>
+    <string name="zebra_not_enough_memory">メモリが不足し、画像を処理することはできません</string>
+    
+    <string name="zebra_dealing">処理中</string>
+    <string name="zebra_loading">読み込み中</string>
+    <string name="zebra_tips">ヒント</string>
+    
+    <string name="zebra_crop_failed">トリム失敗。やり直してください</string>
+    
+</resources>

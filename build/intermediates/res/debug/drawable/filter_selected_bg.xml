@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#00ffffff" />
+    <corners android:topLeftRadius="3px"
+        android:topRightRadius="3px"
+        android:bottomRightRadius="3px"
+        android:bottomLeftRadius="3px"/>
+    <stroke android:width="2px" android:color="#00a5e0" />
+</shape> <!-- From: file:/Users/retryu/photoplugs/res/drawable/filter_selected_bg.xml -->

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="zebra_send_pic">Enviar</string>
+    <string name="zebra_cut_pic">Cortar</string>
+    <string name="zebra_doodle_pic">Garabatos</string>
+    
+    <string name="zebra_smallpic_tip">La imagen es demasiado pequeña para ser procesados</string>
+    <string name="zebra_doodle_confirm">OK</string>
+    <string name="zebra_doodle_cancel">Cancelar</string>
+    <string name="zebra_doodle_canceltips">La imagen editada no se guardará. ¿Realmente desea salir?</string>
+    
+    <string name="zebra_nav_bar_cancel">Cancelar</string>
+    
+    <string name="zebra_choose_picture">Selec. Imagen</string>
+    <string name="zebra_not_find_picture">La imagen no se encuentra</string>
+    <string name="zebra_file_not_exsit_or_unvalid">Imagen no existe o su formato no es compatible</string>
+    <string name="zebra_not_enough_memory">Memoria insuficiente, no puede procesar la imagen</string>
+    
+    <string name="zebra_dealing">Procesando</string>
+    <string name="zebra_loading">Cargando</string>
+    <string name="zebra_tips">Advertencia</string>
+    
+    <string name="zebra_crop_failed">Error, por favor inténtalo de nuevo</string>
+    
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/zebra_filter_operation_bar_height"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal|center_vertical"
+        >
+
+        <com.tencent.zebra.ui.HorizontalButtonView
+            xmlns:tencent="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/hb_filter"
+            style="?attr/filterBar"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            tencent:itemLayoutId="@layout/layout_filter_item"
+            tencent:leftMargin="@dimen/filter_bar_left_margin"
+            tencent:rightMargin="@dimen/filter_bar_right_margin"
+            android:background="@color/filter_bg_color"
+            tencent:horizontalSpace="@dimen/filter_bar_h_space"
+            ></com.tencent.zebra.ui.HorizontalButtonView>
+
+
+    </LinearLayout>
+</LinearLayout><!-- From: file:/Users/retryu/photoplugs/res/layout/layout_effect_filter.xml -->

@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="filter_bar_left_margin">10dp</dimen>
+    <dimen name="filter_bar_right_margin">10dp</dimen>
+    <dimen name="filter_text_size">11.5sp</dimen>
+    <dimen name="filter_bar_h_space">25dp</dimen>
+</resources>

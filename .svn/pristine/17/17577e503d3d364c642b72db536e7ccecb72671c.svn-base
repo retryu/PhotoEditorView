@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000"
+    android:orientation="vertical"
+    android:id="@+id/rootView" >
+
+    <com.tencent.zebra.doodle.DrawableImageView
+        android:id="@+id/imageView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/zebra_doodle_operation_bar_height"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/white"
+        android:layout_marginTop="8dp" >
+
+        <LinearLayout
+            android:id="@+id/doodle_pen_setting_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/zebra_doodle_operation_bar_height"
+            android:layout_gravity="bottom"
+            android:background="@color/zebra_transparent"
+            android:gravity="center"
+            android:orientation="horizontal" >
+            
+			<HorizontalScrollView 
+			    android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scrollbars="none"
+                android:background="@android:color/transparent">
+                
+		    <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="fill_parent"
+                   android:gravity="center_vertical"
+                   android:orientation="horizontal">
+                    
+            <ImageView
+                android:id="@+id/doodle_undo_btn"
+                android:layout_width="@dimen/zebra_doodle_color_size"
+                android:layout_height="@dimen/zebra_doodle_color_size"
+                android:scaleType="fitCenter"
+                android:clickable="true"
+                android:src="@drawable/zebra_doodle_undo_btn" 
+                android:layout_marginLeft="12dp"/>
+            
+            <ImageView
+                android:id="@+id/doodle_eraser_btn"
+                android:layout_width="@dimen/zebra_doodle_color_size"
+                android:layout_height="@dimen/zebra_doodle_color_size"
+                android:layout_marginLeft="15dp"
+                android:clickable="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/zebra_doodle_eraser_btn" />
+
+            <ImageView 
+                android:layout_width="@dimen/zebra_doodle_color_size"
+    			android:layout_height="@dimen/zebra_doodle_color_size"
+    			android:layout_marginLeft="15dp"
+		        android:id="@+id/doodle_mosaic_btn"
+		        android:clickable="true"
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/zebra_doodle_mosaic_btn"/>
+            
+            <ImageView 
+                android:layout_width="@dimen/zebra_doodle_color_size"
+    			android:layout_height="@dimen/zebra_doodle_color_size"
+    			android:gravity="center"
+		        android:id="@+id/doodle_red_btn"
+		        android:padding="2dp"
+		        android:clickable="true"
+		        android:src="@drawable/zebra_doodle_red_btn"
+		        android:layout_marginLeft="15dp"/>
+			
+            <ImageView 
+                android:layout_width="@dimen/zebra_doodle_color_size"
+    			android:layout_height="@dimen/zebra_doodle_color_size"
+    			android:layout_marginLeft="15dp"
+    			android:gravity="center"
+		        android:id="@+id/doodle_orange_btn"
+		        android:padding="2dp"
+		        android:clickable="true"
+		        android:src="@drawable/zebra_doodle_orange_btn"/>
+			
+             <ImageView 
+                android:layout_width="@dimen/zebra_doodle_color_size"
+    			android:layout_height="@dimen/zebra_doodle_color_size"
+    			android:layout_marginLeft="15dp"
+    			android:gravity="center"
+		        android:id="@+id/doodle_yellow_btn"
+		        android:padding="2dp"
+		        android:clickable="true"
+		        android:src="@drawable/zebra_doodle_yellow_btn"/>
+			
+             <ImageView 
+                android:layout_width="@dimen/zebra_doodle_color_size"
+    			android:layout_height="@dimen/zebra_doodle_color_size"
+    			android:layout_marginLeft="15dp"
+    			android:gravity="center"
+		        android:id="@+id/doodle_green_btn"
+		        android:padding="2dp"
+		        android:clickable="true"
+		        android:src="@drawable/zebra_doodle_green_btn"/>
+			
+			<ImageView 
+                android:layout_width="@dimen/zebra_doodle_color_size"
+    			android:layout_height="@dimen/zebra_doodle_color_size"
+    			android:layout_marginLeft="15dp"
+    			android:gravity="center"
+		        android:id="@+id/doodle_blue_btn"
+		        android:padding="2dp"
+		        android:clickable="true"
+		        android:src="@drawable/zebra_doodle_blue_btn"/>
+
+			<ImageView 
+                android:layout_width="@dimen/zebra_doodle_color_size"
+    			android:layout_height="@dimen/zebra_doodle_color_size"
+    			android:layout_marginRight="15dp"
+    			android:gravity="center"
+		        android:id="@+id/doodle_pink_btn"
+		        android:padding="2dp"
+		        android:clickable="true"
+		        android:src="@drawable/zebra_doodle_pink_btn"/>
+			
+            </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+    </FrameLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#b6b6b6"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/zebra_crop_image_btm_bar_bg_height"
+        android:background="@android:color/white"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left|center_vertical"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="15dp"
+                android:background="@color/zebra_transparent"
+                android:text="@string/zebra_nav_bar_cancel"
+                android:textColor="#0079FF"
+                android:textSize="20sp" >
+
+            </Button>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" 
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:text="@string/zebra_doodle_pic"/>
+<!--         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center" >
+
+            <Button
+                android:id="@+id/button_draw"
+                style="@style/zebra_bottom_btn_style"
+                android:background="@drawable/zebra_crop_toolbar_bg"
+                android:text="@string/zebra_doodle_pen" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/zebra_vertical_div" />
+
+            <Button
+                android:id="@+id/button_eraser"
+                style="@style/zebra_bottom_btn_style"
+                android:background="@drawable/zebra_toolbar_unselected_bg"
+                android:text="@string/zebra_doodle_eraser" />
+        </LinearLayout> -->
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="right|center_vertical"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/confirm"
+                android:background="@color/zebra_transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="15dp"
+                android:textSize="20sp"
+                android:text="@string/zebra_send_pic" 
+                android:textColor="#0079FF">
+            </Button>
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

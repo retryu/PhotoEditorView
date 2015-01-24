@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1c1c1f"
+    android:orientation="vertical">
+    <!--<com.tencent.zebra.effect.RotateBgImageView-->
+    <!--android:id="@+id/image_bg"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:scaleType="matrix" />-->
+    <!--<com.tencent.zebra.effect.RotateImageView-->
+    <!--android:id="@+id/image_fg"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent" />-->
+
+
+    <com.tencent.zebra.effect.utils.RotateView
+        android:id="@+id/rotate"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="100dip"
+        />
+
+
+    <HorizontalScrollView
+        android:id="@+id/layout_opra"
+        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:background="#19191c"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_flip_90"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="90'" />
+
+            <Button
+                android:id="@+id/btn_flip_moriior"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="镜像" />
+
+
+            <Button
+                android:id="@+id/btn_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="重置" />
+            <Button
+                android:id="@+id/btn_invalide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="重绘制" />
+
+            <Button
+                android:id="@+id/btn_origin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="原始" />
+            <Button
+                android:id="@+id/btn_free"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="自由" />
+
+            <Button
+                android:id="@+id/btn_1_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1:1" />
+            <Button
+                android:id="@+id/btn_3_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3:4" />
+            <Button
+                android:id="@+id/btn_4_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4:3" />
+
+            <Button
+                android:id="@+id/btn_9_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9:16" />
+            <Button
+                android:id="@+id/btn_16_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16:9" />
+            <Button
+                android:id="@+id/btn_crop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="裁剪" />
+
+
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <SeekBar
+        android:layout_above="@+id/layout_opra"
+        android:id="@+id/seek_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginRight="30dip"
+        android:background="#19191c"
+         />
+
+
+
+</RelativeLayout>

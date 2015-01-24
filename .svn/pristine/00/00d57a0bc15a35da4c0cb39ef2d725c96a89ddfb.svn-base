@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_container"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <AbsoluteLayout
+        android:id="@+id/image_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="#000">
+
+
+    </AbsoluteLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout_effect_containner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_effect_opration_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/zebra_transparent"
+            android:orientation="horizontal"></LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/crop_bottom_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/effect_layout_bg"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/crop_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:background="@color/zebra_transparent"
+                android:text="@string/zebra_nav_bar_cancel"
+                android:textColor="@color/btn_opration_bg"
+                android:textSize="20sp"></Button>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true">
+
+
+                <ImageButton
+                    android:id="@+id/btn_rotate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/btn_crop_bg" />
+
+
+
+                <ImageButton
+                    android:id="@+id/btn_doodle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="25dp"
+                    android:background="@drawable/btn_doodle_bg" />
+
+
+                <ImageButton
+                    android:id="@+id/btn_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="25dp"
+                    android:background="@drawable/btn_filter_bg" />a'z'd
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/crop_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:background="@color/zebra_transparent"
+                android:text="@string/zebra_send_pic"
+                android:textColor="@color/btn_opration_bg"
+                android:textSize="20sp"></Button>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="JceInterface">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/JceInterface.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

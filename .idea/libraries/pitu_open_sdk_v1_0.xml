@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="pitu_open_sdk_v1.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/pitu_open_sdk_v1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

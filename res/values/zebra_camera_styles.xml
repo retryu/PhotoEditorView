@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2008 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <style name="zebra_noAnimation">
+
+        <item name="android:activityOpenEnterAnimation">@null</item>
+
+        <item name="android:activityOpenExitAnimation">@null</item>
+
+        <item name="android:activityCloseEnterAnimation">@null</item>
+
+        <item name="android:activityCloseExitAnimation">@null</item>
+
+        <item name="android:taskOpenEnterAnimation">@null</item>
+
+        <item name="android:taskOpenExitAnimation">@null</item>
+
+        <item name="android:taskCloseEnterAnimation">@null</item>
+
+        <item name="android:taskCloseExitAnimation">@null</item>
+
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+
+        <item name="android:taskToFrontExitAnimation">@null</item>
+
+        <item name="android:taskToBackEnterAnimation">@null</item>
+
+        <item name="android:taskToBackExitAnimation">@null</item>
+
+
+    </style>
+
+    <style name="zebra_NoAnimationTheme" parent="android:Theme">
+
+        <item name="android:windowAnimationStyle">@style/zebra_noAnimation</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+</resources>

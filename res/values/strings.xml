@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">Photoplus</string>
+    <string name="not_install"> 天天p图未安装</string>
+    <string name="original_filter">无</string>
+    <string name="more">更多</string>
+    <string name="alert_check_version">你的手机系统版本过低，不支持该功能</string>
+
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="zebra_buttonStyle">
+        <item name="android:shadowRadius">1.0</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">-2</item>
+        <item name="android:shadowColor">#66000000</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <!-- 蓝色按钮样式 -->
+    <style name="zebra_buttonBlueStyle" parent="@style/zebra_buttonStyle">
+        <item name="android:background">@drawable/zebra_btn_blue</item>
+    </style>
+    <!-- 黑色按钮样式 -->
+    <style name="zebra_buttonBlackStyle" parent="@style/zebra_buttonStyle">
+        <item name="android:background">@drawable/zebra_btn_black</item>
+    </style>
+    <style
+        name="qZoneInputDialog"
+        parent="android:style/Theme.Dialog">
+        <item
+            name="android:windowNoTitle">true</item>
+        <item
+            name="android:windowBackground">@color/zebra_transparent</item>
+    </style>
+</resources>

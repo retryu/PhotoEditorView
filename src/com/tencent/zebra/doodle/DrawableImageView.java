@@ -1,0 +1,470 @@
+package com.tencent.zebra.doodle;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.widget.Toast;
+
+import com.tencent.photoplus.R;
+import com.tencent.zebra.util.log.ZebraLog;
+
+import java.util.ArrayList;
+
+/**
+ * @author haoni
+ * @date 2013-5-6
+ * 可绘画ImageView
+ */
+public class DrawableImageView extends ZoomableImageView {
+    public static final String TAG = "DrawableImageView";
+
+    public static interface OnDrawStartListener {
+        void onDrawStart();
+        void onDrawbleContentChange();
+    }
+
+    ;
+
+    public static interface OnDrawListener {
+        void onDrawStart();
+
+        void onDrawEnd();
+
+        void onZoomEnd();
+    }
+
+    ;
+
+    public static interface OnDrawPathListener {
+
+        void onStart();
+
+        void onMoveTo(float x, float y);
+
+        void onLineTo(float x, float y);
+
+        void onQuadTo(float x, float y, float x1, float y1);
+
+        void onEnd();
+    }
+
+    protected Paint mPaint;
+    protected Path tmpPath = new Path();
+    protected Canvas mCanvas;
+    protected float mX, mY;
+    protected Matrix mIdentityMatrix = new Matrix();
+    protected Matrix mInvertedMatrix = new Matrix();
+    protected Bitmap mCopy;
+    protected static final float TOUCH_TOLERANCE = 8;
+    private OnDrawStartListener mDrawStartListener;
+    private OnDrawPathListener mDrawPathListener;
+    private OnDrawListener mDrawListener;
+    private ArrayList<PathInfo> pathRecord = new ArrayList<PathInfo>();
+
+    private class PathInfo {
+        Path mpath;
+        Matrix mMatrix;
+        Paint mPaint;
+    }
+
+    public DrawableImageView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public DrawableImageView(Context context){
+        super(context,null);
+    }
+
+
+    public void setOnDrawStartListener(OnDrawStartListener listener) {
+        mDrawStartListener = listener;
+    }
+
+    public void setOnDrawPathListener(OnDrawPathListener listener) {
+        mDrawPathListener = listener;
+    }
+
+    public void setOnDrawListener(OnDrawListener listener) {
+        mDrawListener = listener;
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        initPaint();
+        tmpPath = new Path();
+    }
+
+    protected void initPaint() {
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setDither(true);
+        mPaint.setFilterBitmap(false);
+        mPaint.setColor(0xffc51212);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        mPaint.setStrokeWidth(10.0f);
+    }
+
+    @Override
+    protected void onDrawModeChanged() {
+        if (null != mCanvas) {
+            Matrix m1 = new Matrix(getImageMatrix());
+            mInvertedMatrix.reset();
+
+            float[] v1 = getMatrixValues(m1);
+            m1.invert(m1);
+            float[] v2 = getMatrixValues(m1);
+
+            mInvertedMatrix.postTranslate(-v1[Matrix.MTRANS_X], -v1[Matrix.MTRANS_Y]);
+            mInvertedMatrix.postScale(v2[Matrix.MSCALE_X], v2[Matrix.MSCALE_Y]);
+            mCanvas.setMatrix(mInvertedMatrix);
+        }
+    }
+
+    public Paint getPaint() {
+        return mPaint;
+    }
+
+    public void setPaint(Paint paint) {
+        mPaint.set(paint);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        if (mCopy != null) {
+            final int saveCount = canvas.getSaveCount();
+            canvas.save();
+            canvas.drawBitmap(mCopy, getImageMatrix(), null);
+            canvas.restoreToCount(saveCount);
+        }
+    }
+
+    float scale;
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        float scaleX;
+        float scaleY;
+        super.onSizeChanged(w, h, oldw, oldh);
+        scaleX = (float) w / getWidth();
+        scaleY = (float) h / getHeight();
+        scale = scaleX > scaleY ? scaleY : scaleX;
+//        Log.e("onSizeChanged(int w, int h, int oldw, int oldh) " ,"w: " + String.valueOf(w) + " h:" + String.valueOf(h)
+//                + " oldw:" + String.valueOf(oldw) + " oldh:" + String.valueOf(oldh));
+    }
+
+    @Override
+    protected void onScaleChange(float scale) {
+        super.onScaleChange(scale);
+        this.scale = scale;
+        onDrawModeChanged();
+    }
+
+    /**
+     * Commit the changes.
+     */
+    public void commit(Canvas canvas) {
+        Drawable drawable = getDrawable();
+        if (null != drawable && drawable instanceof IBitmapDrawable) {
+//			canvas.drawBitmap( ( (IBitmapDrawable) drawable ).getBitmap(), new Matrix(), null );
+            canvas.drawBitmap(mCopy, new Matrix(), null);
+        }
+    }
+
+    /**
+     * Commit the changes.
+     */
+    public Bitmap commit() {
+        Drawable drawable = getDrawable();
+        if (null != drawable && drawable instanceof IBitmapDrawable) {
+            Bitmap bitmap = ((IBitmapDrawable) drawable).getBitmap();
+            if (null != bitmap) {
+                int width = bitmap.getWidth();
+                int height = bitmap.getHeight();
+                Bitmap bitmapdest = null;
+                try {
+                    bitmapdest = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+                } catch (OutOfMemoryError e) {
+                    ZebraLog.e(TAG, "commit", e);
+                    try {
+                        bitmapdest = Bitmap.createBitmap(width, height, Config.RGB_565);
+                    } catch (OutOfMemoryError e1) {
+                        ZebraLog.e(TAG, "commit", e1);
+                        try {
+                            Toast.makeText(getContext(),
+                                    getResources().getString(R.string.zebra_not_enough_memory),
+                                    Toast.LENGTH_LONG).show();
+                        } catch (Exception e2) {
+                            // TODO 插件很奇怪，这里可能会出现Exception，暂时没有时间跟踪，先备注
+                    ZebraLog.e(TAG, "commit", e2);
+                }
+            }
+                }
+
+                if (null != bitmapdest) {
+                    Canvas canvas = new Canvas(bitmapdest);
+                    canvas.drawBitmap(bitmap, new Matrix(), null);
+                    canvas.drawBitmap(mCopy, new Matrix(), null);
+//                    setImageBitmap(bitmapdest);
+                    if (!bitmap.isRecycled()) {
+                        bitmap.recycle();
+                    }
+                    bitmap = null;
+                    return bitmapdest;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onDrawableChanged(Drawable drawable) {
+        super.onDrawableChanged(drawable);
+
+        if (mCopy != null) {
+            mCopy.recycle();
+            mCopy = null;
+        }
+        if (drawable != null && (drawable instanceof IBitmapDrawable)) {
+            final Bitmap bitmap = ((IBitmapDrawable) drawable).getBitmap();
+
+            try {
+                mCopy = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_8888);
+            } catch (OutOfMemoryError e) {
+                ZebraLog.e(TAG, "onDrawableChanged", e);
+                try {
+                    mCopy = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.RGB_565);
+                } catch (OutOfMemoryError e1) {
+                    ZebraLog.e(TAG, "onDrawableChanged", e1);
+                    return;
+                }
+            }
+
+            mCanvas = new Canvas(mCopy);
+            mCanvas.drawColor(0);
+            onDrawModeChanged();
+        }
+    }
+
+    public void clearCanvas() {
+        if (mCanvas != null) {
+            Paint paint = new Paint();
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+            mCanvas.drawPaint(paint);
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
+            invalidate();
+            pathRecord.clear();
+        }
+    }
+
+    public void unDo() {
+
+        if (pathRecord.size() == 0) {
+            return;
+        }
+
+        if (mCanvas != null) {
+
+            Paint paint = new Paint();
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+            mCanvas.drawPaint(paint);
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
+            invalidate();
+
+            pathRecord.remove(pathRecord.size() - 1);
+            for (PathInfo pathinfo : pathRecord) {
+                mCanvas.save();
+                mCanvas.setMatrix(pathinfo.mMatrix);
+                mCanvas.drawPath(pathinfo.mpath, pathinfo.mPaint);
+                mCanvas.restore();
+            }
+            invalidate();
+        }
+    }
+
+    private void touch_start(float x, float y) {
+//		tmpPath.reset();
+        if (tmpPath == null)
+            tmpPath = new Path();
+
+        tmpPath.moveTo(x, y);
+
+        mX = x;
+        mY = y;
+//		ZebraLog.e("touch_start", "touch_start x : " + String.valueOf(mX) +  " y : " + String.valueOf(mY));
+        if(mDrawListener != null) {
+            mDrawListener.onDrawStart();
+        }
+//		if ( mDrawListener != null ) mDrawListener.onDrawStart();
+//		if ( mDrawPathListener != null ) {
+//			mDrawPathListener.onStart();
+//			float[] pts = new float[] { x, y };
+//			mInvertedMatrix.mapPoints( pts );
+//			mDrawPathListener.onMoveTo( pts[0], pts[1] );,
+//		}
+    }
+
+    private void touch_move(float x, float y) {
+        float dx = Math.abs(x - mX);
+        float dy = Math.abs(y - mY);
+//	      Log.e("touch_move", "touch_move x : " + String.valueOf(x) +  " y : " + String.valueOf(y)
+//	                + "abs x: " + String.valueOf(dx) + " y: " + String.valueOf(dy));
+        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+
+            float x1 = (x + mX) / 2;
+            float y1 = (y + mY) / 2;
+
+            mDrawStartListener.onDrawbleContentChange();
+            tmpPath.quadTo(mX, mY, x1, y1);
+            mCanvas.drawPath(tmpPath, mPaint);
+
+
+//			tmpPath.reset();
+//			tmpPath.moveTo( x1, y1 );
+
+//			if ( mDrawPathListener != null ) {
+//				float[] pts = new float[] { mX, mY, x1, y1 };
+//				mInvertedMatrix.mapPoints( pts );
+//				mDrawPathListener.onQuadTo( pts[0], pts[1], pts[2], pts[3] );
+//			}
+
+            mX = x;
+            mY = y;
+            invalidate();
+        }
+    }
+
+    private void touch_up() {
+        // mCanvas.drawPath( tmpPath, mPaint );
+        if (tmpPath != null && !tmpPath.isEmpty()) {
+            if (mPaint.getAlpha() <= 0 && pathRecord.size() <= 0) {
+
+            } else {
+                PathInfo info = new PathInfo();
+                info.mpath = tmpPath;
+                info.mMatrix = mCanvas.getMatrix();
+                Paint paint = new Paint();
+                paint.set(mPaint);
+                info.mPaint = paint;
+                pathRecord.add(info);
+            }
+            //		tmpPath.reset();
+            tmpPath = null;
+            mDrawListener.onDrawEnd();
+        }
+//		if ( mDrawPathListener != null ) {
+//			mDrawPathListener.onEnd();
+//		}
+    }
+
+    public boolean hasDrawed() {
+        return pathRecord.size() > 0;
+    }
+
+    public static float[] getMatrixValues(Matrix m) {
+        float[] values = new float[9];
+        m.getValues(values);
+        return values;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+//	    if (mScaleDetector.isInProgress()) {
+//	        return true;
+//	    }
+        if (mUserScaled) {
+            return true;
+        }
+        if (event.getPointerCount() == 1) {
+//        	ZebraLog.e("OnTouchEvent DrawResponse", "pointer count : " + String.valueOf(event.getPointerCount()));
+            float x = event.getX();
+            float y = event.getY();
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    touch_start(x, y);
+                    invalidate();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    touch_move(x, y);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    touch_up();
+                    invalidate();
+                    break;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Bitmap getOverlayBitmap() {
+        return mCopy;
+    }
+
+    // /**
+    // * 根据原位图生成一个新的位图，并将原位图所占空间释放
+    // *
+    // * @param srcBmp 原位图
+    // * @return 新位图
+    // */
+    // private final static String TEMP_FILE_PATH = "/mnt/sdcard/temp/tmp.bmp";
+    // public static Bitmap copy(Bitmap srcBmp) {
+    // Bitmap destBmp = null;
+    // try {
+    // // 创建一个临时文件
+    // File file = new File(TEMP_FILE_PATH);
+    // file.getParentFile().mkdirs();
+    //
+    // RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
+    // int width = srcBmp.getWidth();
+    // int height = srcBmp.getHeight();
+    //
+    // FileChannel channel = randomAccessFile.getChannel();
+    // MappedByteBuffer map = channel.map(MapMode.READ_WRITE, 0, width * height * 4);
+    // // MappedByteBuffer map = channel.map(MapMode.READ_WRITE, 0, (width+3)/4*4*height*4);
+    // // 将位图信息写进buffer
+    // srcBmp.copyPixelsToBuffer(map);
+    //
+    // // 释放原位图占用的空间
+    // srcBmp.recycle();
+    //
+    // // 创建一个新的位图
+    // destBmp = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+    // map.position(0);
+    // // 从临时缓冲中拷贝位图信息
+    // destBmp.copyPixelsFromBuffer(map);
+    //
+    // channel.close();
+    // randomAccessFile.close();
+    // if (file.exists())
+    // file.delete();
+    // } catch (Throwable ex) {
+    // ZebraLog.e(TAG, "copy", ex);
+    // destBmp = null;
+    // }
+    //
+    // return destBmp;
+    // }
+
+    @Override
+    public void finishZoom() {
+        if (mDrawListener != null) {
+            mDrawListener.onZoomEnd();
+        }
+    }
+}

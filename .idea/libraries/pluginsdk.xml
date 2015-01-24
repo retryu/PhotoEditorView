@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="pluginsdk">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/pluginsdk.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

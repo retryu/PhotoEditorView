@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent">
+
+        <FrameLayout
+            android:id="@+id/image_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            >
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/imageShuffle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_frame"
+            android:gravity="center_horizontal"
+            android:text="原图"
+            android:textColor="@color/filter_text_color"
+            android:textSize="@dimen/filter_text_size" />
+    </RelativeLayout>
+
+</FrameLayout><!-- From: file:/Users/retryu/photoplugs/res/layout/layout_filter_item.xml -->

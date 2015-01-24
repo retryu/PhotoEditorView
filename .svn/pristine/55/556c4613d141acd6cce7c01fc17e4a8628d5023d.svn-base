@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="/Users/retryu/photoplugs/lib/filterengine.bundle.jar"/>
+	<classpathentry kind="lib" path="/Users/retryu/photoplugs/lib/filterengine.jar"/>
+	<classpathentry kind="lib" path="/Users/retryu/photoplugs/lib/JceInterface.jar"/>
+	<classpathentry kind="lib" path="/Users/retryu/photoplugs/lib/msfDebugSdk.jar"/>
+	<classpathentry kind="lib" path="/Users/retryu/photoplugs/lib/pitu_open_sdk_v1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/retryu/photoplugs/lib/pluginsdk.jar"/>
+	<classpathentry kind="lib" path="/Users/retryu/photoplugs/lib/skin_engine_1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/retryu/photoplugs/lib/wup-1.0.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/Users/retryu/photoplugs/lib/ZebraQQStub.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

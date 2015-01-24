@@ -1,0 +1,365 @@
+package com.tencent.zebra.filter;
+
+import android.app.ProgressDialog;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.os.Message;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.micro.filter.QImage;
+import com.tencent.photoplus.R;
+import com.tencent.ttpic.sdk.util.Pitu;
+import com.tencent.view.FilterEnum;
+import com.tencent.view.FilterFactory;
+import com.tencent.zebra.editutil.Util;
+import com.tencent.zebra.effect.EffectController;
+import com.tencent.zebra.effect.Effects;
+import com.tencent.zebra.effect.PhotoEffectActivity;
+import com.tencent.zebra.effect.utils.GPUImageFilterTools;
+import com.tencent.zebra.ui.HorizontalButtonView;
+import com.tencent.zebra.ui.ViewModel;
+import com.tencent.zebra.util.ReportUtils;
+import com.tencent.zebra.util.ZebraProgressDialog;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import cooperation.zebra.ZebraPluginProxy;
+
+/**
+ * Version 1.0
+ * <p/>
+ * <p/>
+ * Date: 2014-09-28 19:27
+ * Author: retryu
+ * <p/>
+ * <p/>
+ * Copyright © 1998-2014 Tencent Technology (Shenzhen) Company Ltd.
+ */
+public class FilterEffect extends Effects implements View.OnClickListener {
+    private PhotoEffectActivity photoEffectActivity;
+    private ViewGroup containner;
+    private ViewGroup effecrContainer;
+
+    public EffectController controller;
+    HorizontalButtonView buttonList;
+    public  static  String piTuDownloadUrl="http://test.xiangji.qq.com/websites/pitu/mobile/moreFilters.html";
+
+
+    private int mFilterId = FilterEnum.MIC_LENS;
+    private int meffectIndex = 0;
+    private ImageView mImageView;
+    private QImage resource = null;
+    private Bitmap resultBitmap = null;
+    private float param = 1.0f;
+    private ProgressDialog mDialog;
+    ViewGroup photoViewParent;
+    ViewGroup effectLayout;
+
+    static {
+        try {
+            System.loadLibrary("image_filter_common");
+            System.loadLibrary("image_filter_gpu");
+        } catch (UnsatisfiedLinkError e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    public FilterEffect(PhotoEffectActivity photoEffectActivity, ViewGroup containenr, ViewGroup effecrLayout, String path) {
+        super(photoEffectActivity, containenr);
+        mPath = path;
+        this.photoEffectActivity = photoEffectActivity;
+        this.effecrContainer = effecrLayout;
+        this.containner = (ViewGroup) containenr.findViewById(R.id.image_parent);
+
+
+
+
+    }
+
+    @Override
+    public void showEffect() {
+        super.showEffect();
+        effectLayout = (ViewGroup) photoEffectActivity.getLayoutInflater().inflate(R.layout.layout_effect_filter, null);
+        ViewGroup.LayoutParams effectLp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        effecrContainer.addView(effectLayout, effectLp);
+        LayoutInflater layoutInflater = photoEffectActivity.getLayoutInflater();
+        photoViewParent = (ViewGroup) layoutInflater.inflate(R.layout.layout_photoview, null);
+        mImageView = (ImageView) photoViewParent.findViewById(R.id.photoview);
+
+
+        hasEdit = false;
+        if (effectBitmap == null) {
+            loadBitmapFromPath(mPath);
+        } else {
+            mImageView.setImageBitmap(effectBitmap);
+            resultBitmap = effectBitmap.copy(Bitmap.Config.ARGB_8888, false);
+            resource = QImage.Bitmap2QImage(effectBitmap);
+        }
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        containner.addView(photoViewParent, lp);
+
+
+        initFilter();
+    }
+
+
+    public void loadBitmapFromPath(String path) {
+        int[] result = new int[1];
+        effectBitmap = Util.getOrResizeBitmap(mPath, true, result);
+        resultBitmap = effectBitmap.copy(Bitmap.Config.ARGB_8888, false);
+        mImageView.setImageBitmap(resultBitmap);
+        resource = QImage.Bitmap2QImage(resultBitmap);
+    }
+
+    /**
+     * 初始化滤镜界面
+     */
+    public void initFilter() {
+        buttonList = (HorizontalButtonView) effectLayout.findViewById(R.id.hb_filter);
+        List<ViewModel> models = new ArrayList<ViewModel>();
+        final Context context = effecrContainer.getContext();
+        List<String> names = GPUImageFilterTools.filters.names;
+        int buttonSize = GPUImageFilterTools.filters.size() + 2;
+        for (int i = 0; i < buttonSize; i++) {
+            ViewModel model = new ViewModel();
+
+            model.id = i;
+            if (i == 0) {
+                model.label = context.getString(R.string.original_filter);
+            } else if (i == buttonSize - 1) {
+                model.label = context.getString(R.string.more);
+            } else {
+                model.label = names.get(i - 1);
+            }
+            model.imageRes = R.drawable.ic_filter_origion;
+
+            models.add(model);
+        }
+
+        buttonList.init(models);
+        buttonList.reset();
+        buttonList.invalidate();
+
+        buttonList.setListener(new HorizontalButtonView.ButtonChangeListener() {
+            @Override
+            public boolean onButtonChanged(int oldId, int newId, View view) {
+                Log.e("debug", "onclick:" + oldId + " newId:" + newId);
+
+
+                hasEdit = true;
+                if (newId == 0) {
+                    mImageView.setImageBitmap(effectBitmap);
+                } else if (newId == GPUImageFilterTools.filters.names.size() + 1) {
+
+
+                    Log.e("debug", "onclick:" + oldId + " newId:" + newId + "  toPitu");
+                    if (Pitu.isOpenSdkSupport(photoEffectActivity)) {
+                        jumpToPiTu();
+                    } else {
+                        int sysVersion = Integer.parseInt(Build.VERSION.SDK);
+                        if(sysVersion>8) {
+                            try {
+                                ComponentName com = new ComponentName("com.tencent.mobileqq", "com.tencent.mobileqq.activity.QQBrowserActivity");
+                                Intent intent = new Intent();
+                                intent.putExtra("url", piTuDownloadUrl);
+                                intent.setComponent(com);
+                                photoEffectActivity.startActivity(intent);
+                            } catch (Exception e) {
+                                Toast.makeText(photoEffectActivity, context.getString(R.string.not_install), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else{
+                            Toast.makeText(photoEffectActivity,context.getString(R.string.alert_check_version), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    return false;
+                } else {
+                    int filterID = GPUImageFilterTools.filters.filters.get(newId - 1);
+                    int effectindex = GPUImageFilterTools.filters.effectIndex.get(newId - 1);
+                    switchFilterTo(filterID, effectindex);
+                    ReportUtils.report("", "", "", "0X8004B3E", "0X8004B3E", 0, 0, "", "", "", "");
+                }
+                buttonList.clearButtonState(oldId, newId, view);
+                return true;
+            }
+
+            @Override
+            public void onButtonClick(View view) {
+
+            }
+        });
+        buttonList.clearButtonState(-1, 0, null);
+    }
+
+    public void resetFilterPosition() {
+        buttonList.clearButtonState(0, 0, null);
+    }
+
+    /**
+     * 跳转至天天p图
+     */
+    private void jumpToPiTu() {
+
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                uiHandler.sendEmptyMessage(SHOW_DLG);
+                String path = Util.saveOutput(photoEffectActivity, mPath, effectBitmap, true);
+                controller.updateControllerPath(path);
+                Log.e("debug", "show " + path);
+                Message msg = new Message();
+                msg.what = JUMP_TO_PITU;
+                msg.obj = path;
+                uiHandler.sendMessage(msg);
+                Log.e("debug", "end");
+            }
+        }.start();
+    }
+
+    public void removeCacheFile(String path) {
+        File f = new File(path);
+        if (f.exists()) {
+            f.delete();
+        }
+    }
+
+    @Override
+    public void hide() {
+        super.hide();
+        hasEdit = false;
+        effecrContainer.removeAllViews();
+        containner.removeView(photoViewParent);
+        photoViewParent = null;
+        effectBitmap = null;
+        resultBitmap = null;
+    }
+
+    @Override
+    public void onClick(final View v) {
+        switch (v.getId()) {
+
+        }
+    }
+
+
+    /**
+     * 切换滤镜
+     *
+     * @param filterID
+     * @param effect
+     */
+    private void switchFilterTo(final int filterID, final int effect) {
+        meffectIndex = effect;
+        mFilterId = filterID;
+        updateFilter();
+    }
+
+    /**
+     * 更新当前滤镜效果
+     */
+    public void updateFilter() {
+        if (resource == null || effectBitmap == null) {
+            return;
+        }
+        resource.ToBitmap(resultBitmap);
+        showProgressDialog();
+        FilterFactory.renderBitmapByFilterIDAsync(resultBitmap, mFilterId, meffectIndex, param, new Runnable() {
+
+            @Override
+            public void run() {
+                mImageView.post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        dismissProgressDialog();
+                        mImageView.setImageBitmap(resultBitmap);
+                    }
+                });
+            }
+        });
+    }
+
+    private void dismissProgressDialog() {
+        try {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void showProgressDialog(/* String msg */) {
+        if (mDialog == null) {
+            mDialog = ZebraProgressDialog.show(photoEffectActivity, null,
+                    photoEffectActivity.getResources().getString(R.string.zebra_dealing), true, false);
+            mDialog.setIndeterminate(true);
+            mDialog.setCancelable(false);
+        }
+        try {
+            mDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public Bitmap getEffectBitmap() {
+//        return super.getEffectBitmap();
+        effectBitmap.recycle();
+        effectBitmap = resultBitmap;
+        return effectBitmap;
+    }
+
+    @Override
+    public void recyleImage() {
+        super.recyleImage();
+        if (effectBitmap != null) {
+            effectBitmap.recycle();
+            effectBitmap = null;
+        }
+        mImageView.setImageBitmap(null);
+        System.gc();
+    }
+
+    @Override
+    public void confirm(View btnConfrime) {
+        super.confirm(btnConfrime);
+    /*    new Thread() {
+            @Override
+            public void run() {
+                super.run();*/
+                Log.e("debug", "saving:" + saving);
+                if (saving == false) {
+                    saving = true;
+                    mPath = Util.saveOutput(photoEffectActivity, mPath, getEffectBitmap(), true);
+                    uiHandler.sendEmptyMessageDelayed(DISMISS_DLG, 300);
+                    saving = false;
+                    ArrayList<String> paths = new ArrayList<String>();
+                    paths.add(mPath);
+                    Log.e("debug","confime save"+mPath+"  photoEffectActivity"+photoEffectActivity);
+                    //TODO
+                    ZebraPluginProxy.sendPhotoForPhotoPlus(photoEffectActivity, photoEffectActivity.getIntent(),
+                            paths);
+                   photoEffectActivity.finish();
+                }
+         /*   }
+        }.start();*/
+
+    }
+}
+

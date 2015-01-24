@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="zebra_send_pic">보내기</string>
+    <string name="zebra_cut_pic">클립핑</string>
+    <string name="zebra_doodle_pic">스케치</string>
+    
+    <string name="zebra_smallpic_tip">사진을 처리하기에는 너무 작다</string>
+    <string name="zebra_doodle_confirm">확인</string>
+    <string name="zebra_doodle_cancel">취소</string>
+    <string name="zebra_doodle_canceltips">편집 한 사진은 저장되지 않습니다. 당신이 정말로 종료 하시겠습니까?</string>
+    
+    <string name="zebra_nav_bar_cancel">취소</string>
+    
+    <string name="zebra_choose_picture">이미지 선택</string>
+    <string name="zebra_not_find_picture">사진은 발견되지</string>
+    <string name="zebra_file_not_exsit_or_unvalid">이미지가 존재하지 않거나 그 형식은 지원되지 않습니다</string>
+    <string name="zebra_not_enough_memory">메모리가 부족하여, 사진을 처리 할 수 ​​없습니다</string>
+    
+    <string name="zebra_dealing">처리 중</string>
+    <string name="zebra_loading">불러오는 중</string>
+    <string name="zebra_tips">알림</string>
+    
+    <string name="zebra_crop_failed">실패 클립핑, 다시 시도하십시오</string>
+    
+</resources>

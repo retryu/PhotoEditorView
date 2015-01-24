@@ -1,0 +1,9 @@
+﻿2014-07-04 LouisPeng
+尚未加入ANT自动编译，修改后，需要手动打包
+
+手动打包步骤：
+1.root目录新建lib文件夹，把libs中的jar都挪过去
+2.build path里面import lib里面所有的包，去掉去掉export里lib里面对应的jar前面的钩
+3.用手Q的keystore export出来（/AndroidQQ_Lite_proj/QQLite/android-release-key.keystore)
+4.重命名成Photoplus.jpg放到插件包目录下(/AndroidQQ_Lite_proj/QQLite/plugin/plugin_pkgs)
+

@@ -1,0 +1,219 @@
+package com.tencent.zebra.ui;
+
+import java.io.File;
+import java.util.ArrayList;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.Handler;
+
+import com.tencent.photoplus.R;
+import com.tencent.zebra.editutil.Util;
+import com.tencent.zebra.util.log.ZebraLog;
+
+import cooperation.zebra.ZebraPluginProxy;
+
+/** 
+ * @author haoni@tencent.com 
+ * @date 2013-4-18 下午5:04:40 
+ * 美化页面的基类
+ */
+public class BaseGlorifyActivity extends MonitoredActivity {
+    
+    // INPUT_DATA_FLAG
+    public static final String SPECIFIED_INPUT_DATA_FLAG = "specified_input_image_path";
+    // OUTPUT_DATA_FLAG
+    public static final String SPECIFIED_OUTPUT_DATA_FLAG = "specified_output_image_path";    
+//    // RETURN_DATA_FLAG
+//    public static final String RETURN＿DATA_FLAG = "return_data_flag"; 
+    
+    protected final Handler mHandler  = new Handler();
+    // 传入的照片地址
+    protected String mImagePath;
+    // 传入的外部存储地址
+    protected String mOutputImagePath;
+    // 是否被水印相机调用
+    protected boolean isInvokedByOtherApp = false;
+    
+    public boolean isFromCrop;
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mImagePath = getOutSourcePicPath();
+        isFromCrop = getIntent().getBooleanExtra("isfromCrop", false);
+        if (null != mImagePath){
+//            mOutputImagePath = getOutDestPicPath();
+            mOutputImagePath = mImagePath;
+//            isInvokedByOtherApp = true;
+//            Util.DisplayInfo("InvokedByOtherApp. Image path is: "+ mImagePath);
+            initWhileCalledFromOutside();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+    
+    private String getOutSourcePicPath(){
+        Intent intent = getIntent();
+//        String action = intent.getAction();
+        return intent.getStringExtra("image_path");
+//        if (Intent.ACTION_VIEW.equals(action)){
+//            try{
+//                Uri uri = intent.getData();
+//                String path = "";
+//                Cursor cursor = this.getContentResolver().query(uri, new String[] { MediaStore.Images.Media.DATA }, null, null, null);
+//                if (cursor != null) {
+//                    int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//                    cursor.moveToFirst();
+//                    path = cursor.getString(index);
+//                } else {
+//                    path = uri.getPath();
+//                }
+//                if(null == path || Util.getBmpSize(path) == null){
+//                    Toast.makeText(this,getResources().getString(R.string.zebra_not_find_picture), Toast.LENGTH_LONG).show();
+//                }else{
+//                    String ext = Util.getExtensionName(path);
+//                    
+//                    if(ext.equals("png")||ext.equals("PNG")
+//                            ||ext.equals("jpg")||ext.equals("JPG") 
+//                            ||ext.equals("bmp")||ext.equals("BMP")
+//                            ||ext.equals("jpeg")||ext.equals("JPEG")
+//                            ||ext.equals("gif")||ext.equals("GIF")){
+//                        return path;
+//                    }else{
+//                        Toast.makeText(this,getResources().getString(R.string.zebra_not_find_picture), Toast.LENGTH_LONG);
+//                    }
+//                }
+//                
+//            } catch (Exception e){
+//                Log.e(this.getClass().getName(), e.toString());
+//            }
+//        } else {
+//            return getIntent().getStringExtra(SPECIFIED_INPUT_DATA_FLAG);
+//        }
+//        return null;
+    }
+
+    private void initWhileCalledFromOutside() {
+//        wnsEngineMgr = WnsEngineManager.getInstance();
+//        wnsEngineMgr.init(getApplicationContext());
+//        weiboMgr = WeiboManager.getInstance();
+//        weiboMgr.init(this);
+//        renrenMgr = RenrenManager.getInstance();
+//        renrenMgr.init(this);
+//        DataReport.initDataReport();//初始化所有上报数据
+//        // 初始化
+//        AppBmpMgr.getInstance().init();
+//        // 启动时清空
+//        AppBmpMgr.getInstance().resetCache();
+//        FrameAttributeParser.getXmlParser(BaseGlorifyActivity.this);
+//        ConcateAttributeParser.getXmlParser(BaseGlorifyActivity.this);
+    }
+    
+    protected void dealResult(final Bitmap bitmap, final boolean forCache){
+        Util.startBackgroundJob(this, null, getString(R.string.zebra_dealing), new Runnable() {
+            public void run() {
+                if (isInvokedByOtherApp){
+                    callbackInvokingApp(bitmap);
+                } else {
+                    saveOutput(bitmap, forCache);
+                }
+            }
+        }, mHandler);
+    }
+    
+    protected void saveOutput(Bitmap glorifiedBitmap, boolean forCache) {
+//        String path = AppBmpMgr.getInstance().getOriginFilePath();
+        String path = Util.saveOutput(getThisActivity(), mImagePath, glorifiedBitmap, forCache);
+        
+        if (glorifiedBitmap != null && glorifiedBitmap.isRecycled()) {
+            glorifiedBitmap.recycle();
+        }
+        
+        if(isFromCrop) {
+			Intent intent = new Intent();
+			intent.putExtra("image_path", path);
+			setResult(RESULT_OK, intent);
+			finish();
+        } else {
+            ArrayList<String> paths = new ArrayList<String>();
+            paths.add(path);
+            ZebraPluginProxy.sendPhotoForPhotoPlus(getThisActivity(), getIntent(), paths);
+        }
+
+//        finish();
+    }
+    
+    protected void callbackInvokingApp(Bitmap glorifiedBitmap) {
+//        Util.saveImageToSpecifiedPath(BaseGlorifyActivity.this, mOutputImagePath, glorifiedBitmap);
+//        Intent result = new Intent();
+//        result.putExtra(SPECIFIED_OUTPUT_DATA_FLAG, mOutputImagePath);
+//        setResult(RESULT_OK, result);
+        finish();        
+    }
+    
+    private String getOutDestPicPath(){
+        String outDestPicPath = getIntent().getStringExtra(SPECIFIED_OUTPUT_DATA_FLAG);
+        if (null == outDestPicPath){
+            String dealedImagePath = getPicSavePathStr();  
+            File file = new File(dealedImagePath);
+            outDestPicPath = file.getAbsolutePath();
+        }
+        ZebraLog.e("BaseGlorifyActivity outDestPicPath is : ", outDestPicPath);
+        return outDestPicPath;
+    }
+    
+    public String getPicSavePathStr() {
+        String fullName = getFullName(mImagePath);
+        String outputDir = getFirstName(mImagePath);
+        File fileDir = new File(outputDir);
+        if (!fileDir.exists()) {
+            try {
+                File parentFile = fileDir.getParentFile();
+                if (!parentFile.exists()) {
+                    parentFile.mkdirs();
+                }
+                fileDir.mkdirs();
+            } catch (Exception e) {
+            	ZebraLog.e("BaseGlorifyActivity", "Make dir failed.");
+                return null;
+            }
+        }
+       String outputPath =  outputDir +File.separator + "qpik_" + System.currentTimeMillis() + "_" + fullName;
+       File file = new File(outputPath);
+       return file.getAbsolutePath();
+    }   
+    public static String getExtensionName(String filename) {   
+        if ((filename != null) && (filename.length() > 0)) {   
+            int dot = filename.lastIndexOf('.');   
+            if ((dot >-1) && (dot < (filename.length() - 1))) {   
+                return filename.substring(dot + 1);   
+            }   
+        }   
+        return filename;   
+    }   
+
+    public static String getFullName(String filename) {   
+        if ((filename != null) && (filename.length() > 0)) {   
+            int dot = filename.lastIndexOf('/');   
+            if ((dot >-1) && (dot < (filename.length() - 1))) {   
+                return filename.substring(dot + 1);   
+            }   
+        }   
+        return filename;   
+    }   
+    
+    public static String getFirstName(String filename) {   
+        if ((filename != null) && (filename.length() > 0)) {   
+            int dot = filename.lastIndexOf('/');   
+            if ((dot >-1) && (dot < (filename.length() - 1))) {   
+                return filename.substring(0, dot);   
+            }   
+        }   
+        return filename;   
+    }     
+}

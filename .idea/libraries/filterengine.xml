@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="filterengine">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/filterengine.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

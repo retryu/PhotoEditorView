@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="app_name">Photoplus</string>
+    <string name="not_install"> 天天p图未安装</string>
+    <string name="original_filter">无</string>
+    <string name="more">更多</string>
+
+</resources>

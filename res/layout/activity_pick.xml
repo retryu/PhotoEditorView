@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_pick"
+        android:text="打开照片"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="模拟手q的照片选择界面,点击选择照片"
+        android:layout_below="@id/btn_pick"
+        android:textColor="@android:color/black"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView" />
+
+
+
+</RelativeLayout>
