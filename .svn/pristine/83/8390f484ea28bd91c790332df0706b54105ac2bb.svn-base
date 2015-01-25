@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="zebra_transparent">#00ffffff</color>
-    <color name="zebra_btn_common_nav_pressed_start_color">#FFFFFF</color>
-    <color name="zebra_btn_common_nav_pressed_end_color">#00FFFFFF</color>
-    <color name="dialog_blue">#0079ff</color>
-    <color name="dialog_gray">#34000000</color>
-</resources>

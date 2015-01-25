@@ -57,7 +57,7 @@ public class RotateView extends CropView {
     private Bitmap  mBitmap;
 
 
-    private  static boolean  debug = false;
+    private  static boolean  debug = true;
     public RotateView(Context context, AttributeSet attrs) {
         super(context, attrs);
 

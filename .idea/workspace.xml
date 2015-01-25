@@ -37,50 +37,50 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="onScoll [ACTION_MOVE] Up" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="onScoll [mapPhotoRect] [printMatrix]" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.tencent.photoplus" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="df4752dc-8cd8-4dba-9fb3-fc23aad6d629" name="Default" comment="--crid=174324 - [旋转裁剪|http://code.oa.com/v2/user/request/174324]">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/camera_crop_holo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/crop" />
+    <list default="true" id="df4752dc-8cd8-4dba-9fb3-fc23aad6d629" name="Default" comment="--crid=174324 - [旋转裁剪|http://code.oa.com/v2/user/request/174324]">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/Utils.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/drag_border.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/FullscreenToolView.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/RotateBgImageView.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/RotateActivity.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/ic_drag_point_normal.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/instant.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/photoplus_dowding_img_2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/CropView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/FullscreenToolView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/RotateActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/RotateBgImageView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/RotateImageView.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/RotateView.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/camera_crop_holo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/CropView.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/photoplus_dowding_img_2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/crop" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/RotateImageView.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/crop/TestActivity.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/Utils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/Utils.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/activity_crop_view.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/filterengine.bundle.jar" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/crop/TestActivity.java" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/libs/filterengine.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/filterengine.bundle.jar" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/filter/FilterEffect.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/filter/FilterEffect.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/activity_pick.xml" afterPath="$PROJECT_DIR$/res/layout/activity_pick.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/effect/CropEffect.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/CropEffect.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/crop/CropImageActivity.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/crop/CropImageActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/crop/CropImageView.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/crop/CropImageView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/layout_photo_editor.xml" afterPath="$PROJECT_DIR$/res/layout/layout_photo_editor.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/effect/EffectController.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/EffectController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/editutil/Util.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/editutil/Util.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/ui/DemoActivity.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/ui/DemoActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/zebra_strings.xml" afterPath="$PROJECT_DIR$/res/values/zebra_strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/effect/Effects.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/Effects.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/doodle/PickPicureActivity.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/doodle/PickPicureActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/crop/CropImageView.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/crop/CropImageView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/doodle/DoodleEffect.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/doodle/DoodleEffect.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/doodle/DrawableImageView.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/doodle/DrawableImageView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/effect/EffectController.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/EffectController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/effect/Effects.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/Effects.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/filter/FilterEffect.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/filter/FilterEffect.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/GPUImageFilterTools.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/GPUImageFilterTools.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/doodle/PickPicureActivity.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/doodle/PickPicureActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/editutil/Util.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/editutil/Util.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/activity_pick.xml" afterPath="$PROJECT_DIR$/res/layout/activity_pick.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/color.xml" afterPath="$PROJECT_DIR$/res/values/color.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/layout_photo_editor.xml" afterPath="$PROJECT_DIR$/res/layout/layout_photo_editor.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/zebra_strings.xml" afterPath="$PROJECT_DIR$/res/values/zebra_strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/crop/CropImageActivity.java" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/crop/CropImageActivity.java" />
     </list>
     <list id="464fb65c-1e57-4a15-9ee3-720b2b744123" name="Revert: add Photoplus for mQQ&#10;" comment="" />
     <ignored path="photoplugs.iws" />
@@ -108,14 +108,14 @@
     <favorites_list name="photoplugs" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4394184">
+    <splitter split-orientation="horizontal" split-proportion="0.32471728">
       <split-first>
         <leaf>
-          <file leaf-file-name="CropView.java" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="CropView.java" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/CropView.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.64659685" vertical-offset="16073" max-vertical-offset="16455">
-                  <caret line="1136" column="0" selection-start-line="1136" selection-start-column="0" selection-end-line="1136" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="4245" max-vertical-offset="16455">
+                  <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -158,27 +158,21 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="RotateView.java" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="RotateView.java" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.7251309" vertical-offset="27083" max-vertical-offset="27465">
-                  <caret line="1869" column="1" selection-start-line="1869" selection-start-column="1" selection-end-line="1869" selection-end-column="1" />
+                <state vertical-scroll-proportion="0.4643963" vertical-offset="6195" max-vertical-offset="29490">
+                  <caret line="457" column="53" selection-start-line="457" selection-start-column="53" selection-end-line="457" selection-end-column="53" />
                   <folding>
-                    <element signature="e#3468#3469#0" expanded="true" />
-                    <element signature="e#3530#3531#0" expanded="true" />
-                    <element signature="e#13439#14209#0" expanded="true" />
-                    <element signature="e#14178#14179#0" expanded="true" />
+                    <element signature="e#1856#3091#0" expanded="true" />
+                    <element signature="e#3080#3081#0" expanded="true" />
+                    <element signature="e#13434#14204#0" expanded="true" />
+                    <element signature="e#14173#14174#0" expanded="true" />
+                    <element signature="e#55621#56188#0" expanded="true" />
+                    <element signature="e#56173#56174#0" expanded="true" />
+                    <element signature="e#56213#56781#0" expanded="true" />
+                    <element signature="e#56766#56767#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="View.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$USER_HOME$/Downloads/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/view/View.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="256710" max-vertical-offset="293655">
-                  <caret line="17114" column="97" selection-start-line="17114" selection-start-column="97" selection-end-line="17114" selection-end-column="97" />
-                  <folding />
                 </state>
               </provider>
             </entry>
@@ -196,8 +190,8 @@
           <file leaf-file-name="CropActivity.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/tencent/zebra/effect/CropActivity.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="1050" max-vertical-offset="3345">
-                  <caret line="98" column="22" selection-start-line="98" selection-start-column="22" selection-end-line="98" selection-end-column="22" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="2850" max-vertical-offset="3810">
+                  <caret line="190" column="19" selection-start-line="190" selection-start-column="19" selection-end-line="190" selection-end-column="19" />
                   <folding />
                 </state>
               </provider>
@@ -831,8 +825,8 @@
         <option value="$PROJECT_DIR$/res/values/color.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_pick.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_crop_view.xml" />
-        <option value="$PROJECT_DIR$/src/com/tencent/zebra/effect/CropActivity.java" />
         <option value="$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/CropView.java" />
+        <option value="$PROJECT_DIR$/src/com/tencent/zebra/effect/CropActivity.java" />
         <option value="$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java" />
       </list>
     </option>
@@ -1357,37 +1351,37 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38682252" sideWeight="0.49972484" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32624868" sideWeight="0.49972484" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3512748" sideWeight="0.43821448" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36685553" sideWeight="0.6235864" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51133144" sideWeight="0.6235864" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36685553" sideWeight="0.37641358" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19700748" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32908705" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4218916" sideWeight="0.39598662" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25040388" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3371105" sideWeight="0.63296956" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40084985" sideWeight="0.4806139" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.48441926" sideWeight="0.4806139" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32765958" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14956331" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32401314" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18174475" sideWeight="0.49858356" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18174475" sideWeight="0.49858356" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.407932" sideWeight="0.54361874" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4493192" sideWeight="0.7393839" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24958494" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296643" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3512748" sideWeight="0.43821448" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1395,15 +1389,15 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38723403" sideWeight="0.49972484" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31455898" sideWeight="0.56543344" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32908705" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4218916" sideWeight="0.39598662" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16546762" sideWeight="0.50086355" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32765958" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4218916" sideWeight="0.39598662" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32908705" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32765958" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16546762" sideWeight="0.49913645" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28464016" sideWeight="0.54451466" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24958494" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28464016" sideWeight="0.54451466" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4493192" sideWeight="0.7393839" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1417,8 +1411,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33942" sideWeight="0.63296956" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46938777" sideWeight="0.603676" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14956331" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32401314" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -1560,13 +1554,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>1666</line>
+          <line>1794</line>
           <properties />
           <option name="timeStamp" value="248" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>1811</line>
+          <line>1939</line>
           <properties />
           <option name="timeStamp" value="469" />
         </line-breakpoint>
@@ -1584,61 +1578,55 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>1305</line>
+          <line>1433</line>
           <properties />
           <option name="timeStamp" value="558" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>1298</line>
+          <line>1426</line>
           <properties />
           <option name="timeStamp" value="562" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>1257</line>
+          <line>1385</line>
           <properties />
           <option name="timeStamp" value="566" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>1348</line>
-          <properties />
-          <option name="timeStamp" value="569" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>832</line>
+          <line>959</line>
           <properties />
           <option name="timeStamp" value="603" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>782</line>
+          <line>909</line>
           <properties />
           <option name="timeStamp" value="604" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>801</line>
+          <line>928</line>
           <properties />
           <option name="timeStamp" value="605" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>817</line>
+          <line>944</line>
           <properties />
           <option name="timeStamp" value="606" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>810</line>
+          <line>937</line>
           <properties />
           <option name="timeStamp" value="607" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>1200</line>
+          <line>1328</line>
           <properties />
           <option name="timeStamp" value="636" />
         </line-breakpoint>
@@ -1656,15 +1644,39 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>1792</line>
+          <line>1920</line>
           <properties />
           <option name="timeStamp" value="673" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
-          <line>582</line>
+          <line>700</line>
           <properties />
           <option name="timeStamp" value="681" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
+          <line>751</line>
+          <properties />
+          <option name="timeStamp" value="689" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
+          <line>750</line>
+          <properties />
+          <option name="timeStamp" value="690" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
+          <line>603</line>
+          <properties />
+          <option name="timeStamp" value="693" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java</url>
+          <line>589</line>
+          <properties />
+          <option name="timeStamp" value="694" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/com/tencent/zebra/crop/CropImageActivity.java</url>
@@ -1700,7 +1712,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="684" />
+      <option name="time" value="695" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -1923,7 +1935,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44362292" vertical-offset="6780" max-vertical-offset="8100">
           <caret line="521" column="0" selection-start-line="521" selection-start-column="0" selection-end-line="521" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1997,14 +2008,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Downloads/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="250665" max-vertical-offset="286770">
-          <caret line="17114" column="97" selection-start-line="17114" selection-start-column="97" selection-end-line="17114" selection-end-column="97" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/media/effect/effects/RotateEffect.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
@@ -2058,32 +2061,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Downloads/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/view/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33251232" vertical-offset="260070" max-vertical-offset="293655">
+          <caret line="17347" column="19" selection-start-line="17347" selection-start-column="19" selection-end-line="17347" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/CropView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4245" max-vertical-offset="16455">
+          <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tencent/zebra/effect/CropActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1050" max-vertical-offset="3345">
-          <caret line="98" column="22" selection-start-line="98" selection-start-column="22" selection-end-line="98" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2254" max-vertical-offset="3345">
+          <caret line="190" column="19" selection-start-line="190" selection-start-column="19" selection-end-line="190" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7251309" vertical-offset="27083" max-vertical-offset="27465">
-          <caret line="1869" column="1" selection-start-line="1869" selection-start-column="1" selection-end-line="1869" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.4643963" vertical-offset="6195" max-vertical-offset="29490">
+          <caret line="457" column="53" selection-start-line="457" selection-start-column="53" selection-end-line="457" selection-end-column="53" />
           <folding>
-            <element signature="e#3468#3469#0" expanded="true" />
-            <element signature="e#3530#3531#0" expanded="true" />
-            <element signature="e#13439#14209#0" expanded="true" />
-            <element signature="e#14178#14179#0" expanded="true" />
+            <element signature="e#1856#3091#0" expanded="true" />
+            <element signature="e#3080#3081#0" expanded="true" />
+            <element signature="e#13434#14204#0" expanded="true" />
+            <element signature="e#14173#14174#0" expanded="true" />
+            <element signature="e#55621#56188#0" expanded="true" />
+            <element signature="e#56173#56174#0" expanded="true" />
+            <element signature="e#56213#56781#0" expanded="true" />
+            <element signature="e#56766#56767#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/CropView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64659685" vertical-offset="16073" max-vertical-offset="16455">
-          <caret line="1136" column="0" selection-start-line="1136" selection-start-column="0" selection-end-line="1136" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
