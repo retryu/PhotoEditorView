@@ -5,19 +5,19 @@
     android:layout_height="match_parent"
     android:background="#1c1c1f"
     android:orientation="vertical">
-    <!--<com.tencent.zebra.effect.RotateBgImageView-->
+    <!--<com.retryu.zebra.effect.RotateBgImageView-->
     <!--android:id="@+id/image_bg"-->
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:layout_centerInParent="true"-->
     <!--android:scaleType="matrix" />-->
-    <!--<com.tencent.zebra.effect.RotateImageView-->
+    <!--<com.retryu.zebra.effect.RotateImageView-->
     <!--android:id="@+id/image_fg"-->
     <!--android:layout_width="fill_parent"-->
     <!--android:layout_height="fill_parent" />-->
 
 
-    <com.tencent.zebra.effect.utils.RotateView
+    <com.retryu.zebra.effect.utils.RotateView
         android:id="@+id/rotate"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

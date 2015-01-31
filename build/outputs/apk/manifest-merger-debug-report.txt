@@ -49,7 +49,7 @@ ADDED from AndroidManifest.xml:20:5
 		ADDED from AndroidManifest.xml:21:9
 	android:theme
 		ADDED from AndroidManifest.xml:23:9
-activity#com.tencent.zebra.effect.PickActivity
+activity#com.retryu.zebra.effect.PickActivity
 ADDED from AndroidManifest.xml:26:9
 	android:windowSoftInputMode
 		ADDED from AndroidManifest.xml:31:13
@@ -71,7 +71,7 @@ category#android.intent.category.LAUNCHER
 ADDED from AndroidManifest.xml:34:17
 	android:name
 		ADDED from AndroidManifest.xml:34:27
-activity#com.tencent.zebra.effect.CropActivity
+activity#com.retryu.zebra.effect.CropActivity
 ADDED from AndroidManifest.xml:47:9
 	android:windowSoftInputMode
 		ADDED from AndroidManifest.xml:50:13

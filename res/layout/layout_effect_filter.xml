@@ -11,7 +11,7 @@
         android:gravity="center_horizontal|center_vertical"
         >
 
-        <com.tencent.zebra.ui.HorizontalButtonView
+        <com.retryu.zebra.ui.HorizontalButtonView
             xmlns:tencent="http://schemas.android.com/apk/res-auto"
             android:id="@+id/hb_filter"
             style="?attr/filterBar"
@@ -24,7 +24,7 @@
             tencent:rightMargin="@dimen/filter_bar_right_margin"
             android:background="@color/filter_bg_color"
             tencent:horizontalSpace="@dimen/filter_bar_h_space"
-            ></com.tencent.zebra.ui.HorizontalButtonView>
+            ></com.retryu.zebra.ui.HorizontalButtonView>
 
 
     </LinearLayout>

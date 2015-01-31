@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:id="@+id/rootView" >
 
-    <com.tencent.zebra.doodle.DrawableImageView
+    <com.retryu.zebra.doodle.DrawableImageView
         android:id="@+id/imageView"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
