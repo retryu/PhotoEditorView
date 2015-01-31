@@ -48,14 +48,14 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/instant.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/photoplus_dowding_img_2.jpg" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/retryu" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/CropView.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/retryu/view/CropView.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/CropView.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/retryu/zebra/effect/RotateView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/RotateView.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/retryu/view/RotateView.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/RotateView.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/RotateView.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/retryu/zebra/effect/Utils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/Utils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/retryu/utils/Utils.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/Utils.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tencent/zebra/effect/utils/Utils.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/activity_crop_view.xml" />
@@ -112,8 +112,8 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/libs/skin_engine_1.1.jar" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/ui" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/libs/wup-1.0.0-SNAPSHOT.jar" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/util/DeviceUtils.java" afterPath="$PROJECT_DIR$/src/com/retryu/zebra/util/DeviceUtils.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/util/LogUtil.java" afterPath="$PROJECT_DIR$/src/com/retryu/zebra/util/LogUtil.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/util/DeviceUtils.java" afterPath="$PROJECT_DIR$/src/com/retryu/util/DeviceUtils.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/tencent/zebra/util/LogUtil.java" afterPath="$PROJECT_DIR$/src/com/retryu/util/LogUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/activity_pick.xml" afterPath="$PROJECT_DIR$/res/layout/activity_pick.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
@@ -155,10 +155,30 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="CropView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/CropView.java">
+        <entry file="file://$PROJECT_DIR$/src/com/retryu/view/CropView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2284" max-vertical-offset="16860">
-              <caret line="189" column="10" selection-start-line="189" selection-start-column="10" selection-end-line="189" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="4939" max-vertical-offset="16860">
+              <caret line="370" column="27" selection-start-line="370" selection-start-column="27" selection-end-line="370" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RotateView.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/retryu/view/RotateView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8051948" vertical-offset="24650" max-vertical-offset="25245">
+              <caret line="1712" column="15" selection-start-line="1712" selection-start-column="15" selection-end-line="1712" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="372" max-vertical-offset="840">
+              <caret line="41" column="35" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -174,22 +194,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RotateView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/RotateView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="124" max-vertical-offset="29775">
-              <caret line="49" column="24" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="PickActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/retryu/zebra/effect/PickActivity.java">
+        <entry file="file://$PROJECT_DIR$/src/com/retryu/activity/PickActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="249" max-vertical-offset="1020">
-              <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="622" max-vertical-offset="1020">
+              <caret line="53" column="22" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -204,39 +216,39 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CropActivity.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/retryu/zebra/effect/CropActivity.java">
+      <file leaf-file-name="CropActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/retryu/activity/CropActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3385013" vertical-offset="919" max-vertical-offset="4050">
-              <caret line="70" column="42" selection-start-line="70" selection-start-column="42" selection-end-line="70" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3210" max-vertical-offset="3990">
+              <caret line="231" column="30" selection-start-line="231" selection-start-column="30" selection-end-line="231" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3557#3731#0" expanded="true" />
-                <element signature="e#3720#3721#0" expanded="true" />
-                <element signature="e#3862#3863#0" expanded="true" />
-                <element signature="e#3926#3927#0" expanded="true" />
-                <element signature="e#3990#3991#0" expanded="true" />
-                <element signature="e#4057#4058#0" expanded="true" />
-                <element signature="e#5220#5662#0" expanded="true" />
-                <element signature="e#5651#5652#0" expanded="true" />
-                <element signature="e#5729#5945#0" expanded="true" />
-                <element signature="e#5934#5935#0" expanded="true" />
-                <element signature="e#6007#6168#0" expanded="true" />
-                <element signature="e#6157#6158#0" expanded="true" />
-                <element signature="e#6231#6439#0" expanded="true" />
-                <element signature="e#6428#6429#0" expanded="true" />
-                <element signature="e#6498#6657#0" expanded="true" />
-                <element signature="e#6646#6647#0" expanded="true" />
+                <element signature="e#3536#3710#0" expanded="true" />
+                <element signature="e#3699#3700#0" expanded="true" />
+                <element signature="e#3841#3842#0" expanded="true" />
+                <element signature="e#3905#3906#0" expanded="true" />
+                <element signature="e#3969#3970#0" expanded="true" />
+                <element signature="e#4036#4037#0" expanded="true" />
+                <element signature="e#5200#5642#0" expanded="true" />
+                <element signature="e#5631#5632#0" expanded="true" />
+                <element signature="e#5709#5925#0" expanded="true" />
+                <element signature="e#5914#5915#0" expanded="true" />
+                <element signature="e#5987#6148#0" expanded="true" />
+                <element signature="e#6137#6138#0" expanded="true" />
+                <element signature="e#6211#6420#0" expanded="true" />
+                <element signature="e#6409#6410#0" expanded="true" />
+                <element signature="e#6479#6635#0" expanded="true" />
+                <element signature="e#6624#6625#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Utils.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/Utils.java">
+      <file leaf-file-name="build.gradle" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="218" max-vertical-offset="10125">
-              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
+              <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -767,13 +779,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/res/layout/layout_effect_crop.xml" />
-        <option value="$PROJECT_DIR$/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/res/layout/layout_effect_filter.xml" />
-        <option value="$PROJECT_DIR$/res/drawable/btn_opration_bg.xml" />
-        <option value="$PROJECT_DIR$/res/color/btn_opration_bg.xml" />
-        <option value="$PROJECT_DIR$/src/com/tencent/zebra/ui/HorizontalButtonView.java" />
-        <option value="$PROJECT_DIR$/res/values/zebra_strings.xml" />
         <option value="$PROJECT_DIR$/src/com/tencent/zebra/effect/Effects.java" />
         <option value="$PROJECT_DIR$/src/com/tencent/zebra/doodle/DrawableImageView.java" />
         <option value="$PROJECT_DIR$/res/drawable/btn_crop_bg.xml" />
@@ -805,7 +810,6 @@
         <option value="$PROJECT_DIR$/src/com/tencent/zebra/effect/TestActivity.java" />
         <option value="$PROJECT_DIR$/src/com/crop/TestActivity.java" />
         <option value="$PROJECT_DIR$/src/com/tencent/zebra/crop/CropImageView.java" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/res/values/color.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_pick.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_crop_view.xml" />
@@ -818,6 +822,14 @@
         <option value="$PROJECT_DIR$/src/com/tencent/zebra/effect/CropActivity.java" />
         <option value="$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/Utils.java" />
         <option value="$PROJECT_DIR$/src/com/retryu/zebra/effect/CropActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/retryu/effect/CropActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/retryu/view/utils/CropActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/retryu/view/utils/CropView.java" />
+        <option value="$PROJECT_DIR$/src/com/retryu/CropActivity.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/com/retryu/activity/PickActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/retryu/Utils.java" />
+        <option value="$PROJECT_DIR$/src/com/retryu/view/RotateView.java" />
       </list>
     </option>
   </component>
@@ -922,7 +934,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
+              <option name="myItemId" value="retryu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -940,41 +956,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zebra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="photoplugs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="photoplugs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zebra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="effect" />
+              <option name="myItemId" value="retryu" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1052,6 +1034,7 @@
       <recent name="com.tencent.zebra.doodle" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.retryu.view" />
       <recent name="com.retryu" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -1107,7 +1090,7 @@
     </configuration>
     <configuration default="false" name="CropActivity" type="AndroidRunConfigurationType" factoryName="Android Application" temporary="true">
       <module name="photoplugs" />
-      <option name="ACTIVITY_CLASS" value="com.retryu.zebra.effect.CropActivity" />
+      <option name="ACTIVITY_CLASS" value="com.retryu.effect.CropActivity" />
       <option name="MODE" value="specific_activity" />
       <option name="DEPLOY" value="true" />
       <option name="ARTIFACT_NAME" value="" />
@@ -1381,7 +1364,7 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4218916" sideWeight="0.39598662" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25040388" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47806355" sideWeight="0.63296956" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3721634" sideWeight="0.4806139" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35552195" sideWeight="0.4806139" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32765958" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14956331" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1464,67 +1447,61 @@
           <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/RotateView.java</url>
+          <url>file://$PROJECT_DIR$/src/com/retryu/view/RotateView.java</url>
           <properties />
           <option name="timeStamp" value="469" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/CropView.java</url>
-          <line>572</line>
+          <url>file://$PROJECT_DIR$/src/com/retryu/view/CropView.java</url>
+          <line>573</line>
           <properties />
           <option name="timeStamp" value="506" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/CropView.java</url>
-          <line>532</line>
+          <url>file://$PROJECT_DIR$/src/com/retryu/view/CropView.java</url>
+          <line>533</line>
           <properties />
           <option name="timeStamp" value="654" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/CropView.java</url>
-          <line>736</line>
+          <url>file://$PROJECT_DIR$/src/com/retryu/view/CropView.java</url>
+          <line>737</line>
           <properties />
           <option name="timeStamp" value="697" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/CropView.java</url>
-          <line>743</line>
+          <url>file://$PROJECT_DIR$/src/com/retryu/view/CropView.java</url>
+          <line>744</line>
           <properties />
           <option name="timeStamp" value="700" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/RotateView.java</url>
+          <url>file://$PROJECT_DIR$/src/com/retryu/view/RotateView.java</url>
           <line>22</line>
           <properties />
           <option name="timeStamp" value="748" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/CropView.java</url>
-          <line>892</line>
+          <url>file://$PROJECT_DIR$/src/com/retryu/view/CropView.java</url>
+          <line>893</line>
           <properties />
           <option name="timeStamp" value="760" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/RotateView.java</url>
-          <line>1986</line>
-          <properties />
-          <option name="timeStamp" value="762" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/CropActivity.java</url>
-          <line>217</line>
+          <url>file://$PROJECT_DIR$/src/com/retryu/activity/CropActivity.java</url>
+          <line>213</line>
           <properties />
           <option name="timeStamp" value="763" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/RotateView.java</url>
-          <line>1481</line>
+          <url>file://$PROJECT_DIR$/src/com/retryu/view/RotateView.java</url>
+          <line>1179</line>
           <properties />
           <option name="timeStamp" value="764" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/CropActivity.java</url>
-          <line>72</line>
+          <url>file://$PROJECT_DIR$/src/com/retryu/activity/CropActivity.java</url>
+          <line>73</line>
           <properties />
           <option name="timeStamp" value="765" />
         </line-breakpoint>
@@ -1535,15 +1512,15 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-field">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/CropView.java</url>
-          <line>43</line>
-          <properties field="photoMatrix" class="com.retryu.zebra.effect.utils.CropView" />
+          <url>file://$PROJECT_DIR$/src/com/retryu/view/CropView.java</url>
+          <line>44</line>
+          <properties field="photoMatrix" class="com.retryu.view.CropView" />
           <option name="timeStamp" value="267" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-field">
-          <url>file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/CropView.java</url>
-          <line>160</line>
-          <properties field="borderPaint" class="com.retryu.zebra.effect.utils.CropView" />
+          <url>file://$PROJECT_DIR$/src/com/retryu/view/CropView.java</url>
+          <line>161</line>
+          <properties field="borderPaint" class="com.retryu.view.CropView" />
           <option name="timeStamp" value="672" />
         </line-breakpoint>
       </breakpoints>
@@ -1681,13 +1658,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/retryu/zebra/effect/RotateView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32178217" vertical-offset="0" max-vertical-offset="606">
-          <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/com/android/internal/policy/impl/PhoneWindow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.54873645" vertical-offset="3356" max-vertical-offset="56130">
@@ -1706,14 +1676,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35623002" vertical-offset="8867" max-vertical-offset="26880">
           <caret line="643" column="0" selection-start-line="643" selection-start-column="0" selection-end-line="643" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12607944" vertical-offset="47" max-vertical-offset="960">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1824,22 +1786,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Downloads/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/graphics/Bitmap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="12105" max-vertical-offset="23190">
-          <caret line="872" column="33" selection-start-line="872" selection-start-column="33" selection-end-line="872" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/retryu/zebra/effect/PickActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="249" max-vertical-offset="1020">
-          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_crop_view.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4347826" vertical-offset="0" max-vertical-offset="1950">
@@ -1851,30 +1797,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/RotateView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="124" max-vertical-offset="29775">
-          <caret line="49" column="24" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/CropView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2284" max-vertical-offset="16860">
-          <caret line="189" column="10" selection-start-line="189" selection-start-column="10" selection-end-line="189" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/retryu/zebra/effect/utils/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="218" max-vertical-offset="10125">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/graphics/BitmapFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33164558" vertical-offset="4954" max-vertical-offset="10065">
@@ -1883,29 +1805,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/retryu/zebra/effect/CropActivity.java">
+    <entry file="file://$USER_HOME$/Downloads/adt-bundle-mac-x86_64-20140702/sdk/sources/android-19/android/graphics/Bitmap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3385013" vertical-offset="919" max-vertical-offset="4050">
-          <caret line="70" column="42" selection-start-line="70" selection-start-column="42" selection-end-line="70" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="12105" max-vertical-offset="23190">
+          <caret line="872" column="33" selection-start-line="872" selection-start-column="33" selection-end-line="872" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/retryu/view/CropView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4939" max-vertical-offset="16860">
+          <caret line="370" column="27" selection-start-line="370" selection-start-column="27" selection-end-line="370" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/retryu/utils/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.7546729" vertical-offset="683" max-vertical-offset="10125">
+          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/retryu/activity/CropActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3210" max-vertical-offset="3990">
+          <caret line="231" column="30" selection-start-line="231" selection-start-column="30" selection-end-line="231" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3557#3731#0" expanded="true" />
-            <element signature="e#3720#3721#0" expanded="true" />
-            <element signature="e#3862#3863#0" expanded="true" />
-            <element signature="e#3926#3927#0" expanded="true" />
-            <element signature="e#3990#3991#0" expanded="true" />
-            <element signature="e#4057#4058#0" expanded="true" />
-            <element signature="e#5220#5662#0" expanded="true" />
-            <element signature="e#5651#5652#0" expanded="true" />
-            <element signature="e#5729#5945#0" expanded="true" />
-            <element signature="e#5934#5935#0" expanded="true" />
-            <element signature="e#6007#6168#0" expanded="true" />
-            <element signature="e#6157#6158#0" expanded="true" />
-            <element signature="e#6231#6439#0" expanded="true" />
-            <element signature="e#6428#6429#0" expanded="true" />
-            <element signature="e#6498#6657#0" expanded="true" />
-            <element signature="e#6646#6647#0" expanded="true" />
+            <element signature="e#3536#3710#0" expanded="true" />
+            <element signature="e#3699#3700#0" expanded="true" />
+            <element signature="e#3841#3842#0" expanded="true" />
+            <element signature="e#3905#3906#0" expanded="true" />
+            <element signature="e#3969#3970#0" expanded="true" />
+            <element signature="e#4036#4037#0" expanded="true" />
+            <element signature="e#5200#5642#0" expanded="true" />
+            <element signature="e#5631#5632#0" expanded="true" />
+            <element signature="e#5709#5925#0" expanded="true" />
+            <element signature="e#5914#5915#0" expanded="true" />
+            <element signature="e#5987#6148#0" expanded="true" />
+            <element signature="e#6137#6138#0" expanded="true" />
+            <element signature="e#6211#6420#0" expanded="true" />
+            <element signature="e#6409#6410#0" expanded="true" />
+            <element signature="e#6479#6635#0" expanded="true" />
+            <element signature="e#6624#6625#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
+          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/retryu/activity/PickActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="622" max-vertical-offset="1020">
+          <caret line="53" column="22" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="207" max-vertical-offset="840">
+          <caret line="41" column="35" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/retryu/view/RotateView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8051948" vertical-offset="24650" max-vertical-offset="25245">
+          <caret line="1712" column="15" selection-start-line="1712" selection-start-column="15" selection-end-line="1712" selection-end-column="15" />
+          <folding />
         </state>
       </provider>
     </entry>
