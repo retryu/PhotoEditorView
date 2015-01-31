@@ -54,25 +54,31 @@ public class CropView extends ImageView {
     public int mRectPaddingBtmExtra;
     public float mViewW;
     public float mViewH;
-    public  int  operationState = 0;
-    public  final static  int  NORMAL_STATE =0x1001;
-    public  final static  int  MOVE_STATE = 0x1002;
-    public  final static  int  ROTATE_STATE = 0x1003;
+    public int operationState = 0;
+    public final static int NORMAL_STATE = 1001;
+    public final static int MOVE_STATE = 1002;
+    public final static int ROTATE_STATE = 1003;
     protected static float MAX_SCALE = 6f;
     protected static float MIN_SCALE = 1f;
+    protected boolean showSize = false;
+    protected RectF mPhotoBoundRect = new RectF();
+    protected RectF rectF;
+    protected RotateView.RotateRect rotateR;
+
+    protected RotateView.RotateRect imageRect;
+    protected Bitmap mBitmap;
+
 
     float newViewH = 0f;
-    float newViewW =  0f;
-   //原始图片的宽厂比
+    float newViewW = 0f;
+    //原始图片的宽厂比
     public float originalRatio = 0f;
 
     //边界检查的接口
-    private RotateView.BounderChecker  bounderChecker;
+    private RotateView.BounderChecker bounderChecker;
 
 
-
-
-//    public CropView(Context context, AttributeSet attrs) {
+    //    public CropView(Context context, AttributeSet attrs) {
 //        super(context, attrs);
 //
 ////        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.FullscreenToolView, 0, 0);
@@ -82,8 +88,8 @@ public class CropView extends ImageView {
 ////        array.recycle();
 //
 //    }
-    public  void setRectPadding(int padding ){
-        mRectPadding =padding;
+    public void setRectPadding(int padding) {
+        mRectPadding = padding;
     }
 
 
@@ -100,8 +106,8 @@ public class CropView extends ImageView {
     }
 
 
+    Matrix turningMatrix = new Matrix();
 
-    Matrix   turningMatrix = new Matrix();
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -119,7 +125,7 @@ public class CropView extends ImageView {
 
     public void initCrop(float w, float h) {
         Matrix matrix = new Matrix();
-        RectF rectF = new RectF(mRectPadding, mRectPadding, w - mRectPadding, h - mRectPadding );
+        RectF rectF = new RectF(mRectPadding, mRectPadding, w - mRectPadding, h - mRectPadding);
         if (matrix.setRectToRect(photoBounds, rectF, Matrix.ScaleToFit.CENTER)) {
             matrix.mapRect(displayBounds, photoBounds);
             displayMatrix.setRectToRect(photoBounds, displayBounds, Matrix.ScaleToFit.CENTER);
@@ -127,9 +133,8 @@ public class CropView extends ImageView {
         turningMatrix.set(matrix);
         matrix.invert(photoMatrix);
 
-        Log.e("debug","[initCrop]"+cropBounds);
+        Log.e("debug", "[initCrop]" + cropBounds);
     }
-
 
 
     /**
@@ -140,14 +145,14 @@ public class CropView extends ImageView {
         void onCropChanged(RectF cropBounds, boolean fromUser);
     }
 
-    protected static final int  MOVE_LEFT = 1;
+    protected static final int MOVE_LEFT = 1;
     protected static final int MOVE_TOP = 2;
     protected static final int MOVE_RIGHT = 4;
     protected static final int MOVE_BOTTOM = 8;
     protected static final int MOVE_BLOCK = 16;
     protected static final int MOVE_SCALE = 0;
 
-    protected static final int MIN_CROP_WIDTH_HEIGHT = (int) 70;
+    protected static final float MIN_CROP_WIDTH_HEIGHT = 70f;
     protected static final int TOUCH_TOLERANCE = 35;
     private static final int SHADOW_ALPHA = 160;
 
@@ -178,13 +183,13 @@ public class CropView extends ImageView {
     private float lastX;
     private float lastY;
     boolean mSetCropBounds = false;
-    public  int movingEdges;
+    public int movingEdges;
     private OnCropChangeListener listener;
 
     public float mRatio;
     public ScaleGestureDetector mScaleGestureDetector;
     public GestureDetector mGestureDector;
-    public  OperateListenner  operateListenner;
+    public OperateListenner operateListenner;
     GestureDetector.OnGestureListener mSingleTapListener = new GestureDetector.OnGestureListener() {
 
         @Override
@@ -213,7 +218,7 @@ public class CropView extends ImageView {
                                 float paramFloat1, float paramFloat2) {
 
 
-            Log.d("debug","onScoll");
+            Log.d("debug", "onScoll");
             if (movingEdges != 0) {
                 moveEdges(-paramFloat1, -paramFloat2);
             }
@@ -332,9 +337,9 @@ public class CropView extends ImageView {
         if (photoBounds.isEmpty()) {
             dst.setEmpty();
         } else {
-            Log.d("debug","[mapPhotoRect]  dst:"+dst.width()/dst.height()+"  src:"+src.width()/src.height()  +"  dst:"+dst);
+            Log.d("debug", "[mapPhotoRect]  dst:" + dst.width() / dst.height() + "  src:" + src.width() / src.height() + "  dst:" + dst);
             photoMatrix.mapRect(dst, src);
-            Log.e("debug","[mapPhotoRect]  dst:"+dst.width()/dst.height()+"  src:"+src.width()/src.height()  +"  dst:"+dst);
+            Log.e("debug", "[mapPhotoRect]  dst:" + dst.width() / dst.height() + "  src:" + src.width() / src.height() + "  dst:" + dst);
             dst.set(dst.left / photoBounds.width(), dst.top / photoBounds.height(),
                     dst.right / photoBounds.width(), dst.bottom / photoBounds.height());
         }
@@ -401,7 +406,6 @@ public class CropView extends ImageView {
 //        dashPaint.setPathEffect(effects);
 
 
-
         operationState = NORMAL_STATE;
     }
 
@@ -440,25 +444,26 @@ public class CropView extends ImageView {
 
         sizeChanged();
     }
-    public  float  getRealRatio(){
-        if(mRatio == 0f){
-            return  newViewH/newViewW;
+
+    public float getRealRatio() {
+        if (mRatio == 0f) {
+            return newViewH / newViewW;
         }
-        return  mRatio;
+        return mRatio;
     }
 
     public RectF getCropBoundsDisplayed() {
         float width = displayBounds.width();
         float height = displayBounds.height();
-        Log.e("debu","cropBound: after displayBounds:"+displayBounds);
-        Log.e("debu","cropBound:"+cropBounds+"   displayBound:"+displayBounds+"  d.height:"+displayBounds.height()+"  d.width:"+displayBounds.width()  );
+        Log.e("debu", "cropBound: after displayBounds:" + displayBounds);
+        Log.e("debu", "cropBound:" + cropBounds + "   displayBound:" + displayBounds + "  d.height:" + displayBounds.height() + "  d.width:" + displayBounds.width());
         RectF cropped = new RectF(cropBounds.left * width, cropBounds.top * height,
                 cropBounds.right * width, cropBounds.bottom * height);
-        Log.e("debu","cropBound: before cropped:"+cropped+"     cropBounds:"+cropBounds);
+        Log.e("debu", "cropBound: before cropped:" + cropped + "     cropBounds:" + cropBounds);
 
         cropped.offset(displayBounds.left, displayBounds.top);
 
-        Log.e("debu","cropBound: after cropped:"+cropped);
+        Log.e("debu", "cropBound: after cropped:" + cropped);
         return cropped;
     }
 
@@ -506,7 +511,7 @@ public class CropView extends ImageView {
                         1f);
             }
         }
-        Log.e("debug","[sizeChanged] cropBounds:"+cropBounds);
+        Log.e("debug", "[sizeChanged] cropBounds:" + cropBounds);
         cropBounds.set(bounds);
         refreshByCropChange(true);
     }
@@ -516,7 +521,7 @@ public class CropView extends ImageView {
         movingEdges = 0;
 
         operateListenner.hasOprated();
-        Log.e("debug","  [detectMovingEdges]:"+cropped);
+        Log.e("debug", "  [detectMovingEdges]:" + cropped);
         float left = Math.abs(x - cropped.left);
         float right = Math.abs(x - cropped.right);
         float top = Math.abs(y - cropped.top);
@@ -537,21 +542,21 @@ public class CropView extends ImageView {
         }
 
 //        if (mRatio == 0 && movingEdges == 0) {
-            if (top <= TOUCH_TOLERANCE) {
-                movingEdges |= MOVE_TOP;
-            } else if (right <= TOUCH_TOLERANCE) {
-                movingEdges |= MOVE_RIGHT;
-            } else if (left <= TOUCH_TOLERANCE) {
-                movingEdges |= MOVE_LEFT;
-            } else if (bottom <= TOUCH_TOLERANCE) {
-                movingEdges |= MOVE_BOTTOM;
-            }
+        if (top <= TOUCH_TOLERANCE) {
+            movingEdges |= MOVE_TOP;
+        } else if (right <= TOUCH_TOLERANCE) {
+            movingEdges |= MOVE_RIGHT;
+        } else if (left <= TOUCH_TOLERANCE) {
+            movingEdges |= MOVE_LEFT;
+        } else if (bottom <= TOUCH_TOLERANCE) {
+            movingEdges |= MOVE_BOTTOM;
+        }
 //        }
 
         if (cropped.contains(x, y) && (movingEdges == 0)) {
             movingEdges = MOVE_BLOCK;
         }
-        Log.e(TAG,"[detectMovingEdges]:"+movingEdges);
+        Log.e(TAG, "[detectMovingEdges]:" + movingEdges);
         invalidate();
     }
 
@@ -611,75 +616,76 @@ public class CropView extends ImageView {
         refreshByCropChange(true);
     }
 
-    public float  checkDelta[] =new  float[2];
+    public float checkDelta[] = new float[2];
+
     private void moveEdges(float deltaX, float deltaY) {
-        RectF  cropped = getCropBoundsDisplayed();
-        float  tmpLeft = cropped.left;
+        RectF cropped = getCropBoundsDisplayed();
+        float tmpLeft = cropped.left;
         float tmpBottom = cropped.bottom;
-        float tmpRight= cropped.right;
+        float tmpRight = cropped.right;
         float tmpTop = cropped.top;
         // fix Dead store to baseCropped
 //        RectF baseCropped = new RectF(cropped);
-        Log.e("debug","[detectMovingEdges]  moveEdges:"+movingEdges+"  display:"+displayBounds+" mRatio:"+mRatio+ "  photoBount"+photoBounds);
-        Log.e("debug","[detectMovingEdges]  checkBounder:"+bounderChecker.containInBounder(checkDelta));
+        Log.e("debug", "[detectMovingEdges]  moveEdges:" + movingEdges + "  display:" + displayBounds + " mRatio:" + mRatio + "  photoBount" + photoBounds);
+        Log.e("debug", "[detectMovingEdges]  checkBounder:" + bounderChecker.containInBounder(checkDelta));
         if (movingEdges == MOVE_BLOCK) {
             // Move the whole cropped bounds within the photo display bounds.
 //            if(bounderChecker.containInBounder()) {
-                deltaX = (deltaX > 0) ? Math.min(displayBounds.right - cropped.right, deltaX)
-                        : Math.max(displayBounds.left - cropped.left, deltaX);
-                 deltaY = (deltaY > 0) ? Math.min(displayBounds.bottom - cropped.bottom, deltaY)
-                        : Math.max(displayBounds.top - cropped.top, deltaY);
-                cropped.offset(deltaX, deltaY);
+            deltaX = (deltaX > 0) ? Math.min(displayBounds.right - cropped.right, deltaX)
+                    : Math.max(displayBounds.left - cropped.left, deltaX);
+            deltaY = (deltaY > 0) ? Math.min(displayBounds.bottom - cropped.bottom, deltaY)
+                    : Math.max(displayBounds.top - cropped.top, deltaY);
+            cropped.offset(deltaX, deltaY);
 //            }
         } else {
             // Adjust cropped bound dimensions within the photo display bounds.
             float minWidth = MIN_CROP_WIDTH_HEIGHT * getImageScale();
             float minHeight = MIN_CROP_WIDTH_HEIGHT * getImageScale();
-           Log.d(TAG,"[moveEdges] mRatio:"+mRatio+"   movingEdge:"+movingEdges+"  &"+(movingEdges&MOVE_RIGHT));
+            Log.d(TAG, "[moveEdges] mRatio:" + mRatio + "   movingEdge:" + movingEdges + "  &" + (movingEdges & MOVE_RIGHT));
             if (mRatio == 0) {
-                boolean  contain = bounderChecker.containInBounder(checkDelta);
-                Log.e("debug","[detectMovingEdges]  contain:"+contain+" checkDelta:"+checkDelta[0]+"  1:"+checkDelta[1]);
+                boolean contain = bounderChecker.containInBounder(checkDelta);
+                Log.e("debug", "[detectMovingEdges]  contain:" + contain + " checkDelta:" + checkDelta[0] + "  1:" + checkDelta[1]);
 //                if(contain) {
 
 
-                    if ((movingEdges & MOVE_LEFT) != 0) {
-                        cropped.left = Math.min(cropped.left + deltaX, cropped.right - maxValue(minWidth));
-                    }
-                    if ((movingEdges & MOVE_TOP) != 0) {
-                        cropped.top = Math.min(cropped.top + deltaY, cropped.bottom - maxValue(minHeight));
-                    }
-                    if ((movingEdges & MOVE_RIGHT) != 0) {
+                if ((movingEdges & MOVE_LEFT) != 0) {
+                    cropped.left = Math.min(cropped.left + deltaX, cropped.right - maxValue(minWidth));
+                }
+                if ((movingEdges & MOVE_TOP) != 0) {
+                    cropped.top = Math.min(cropped.top + deltaY, cropped.bottom - maxValue(minHeight));
+                }
+                if ((movingEdges & MOVE_RIGHT) != 0) {
 
-                        Log.d(TAG, "[moveEdges] mRatio:" + mRatio + "   x1:" + (cropped.right + deltaX) + "  x2:" + (cropped.left + maxValue(minWidth)));
+                    Log.d(TAG, "[moveEdges] mRatio:" + mRatio + "   x1:" + (cropped.right + deltaX) + "  x2:" + (cropped.left + maxValue(minWidth)));
 
-                        cropped.right = Math.max(cropped.right + deltaX, cropped.left + maxValue(minWidth));
-                    }
-                    if ((movingEdges & MOVE_BOTTOM) != 0) {
-                        cropped.bottom = Math.max(cropped.bottom + deltaY, cropped.top + maxValue(minHeight));
-                    }
-                    Log.d(TAG, "[moveEdges] mRatio:" + mRatio + "  l:" + cropped.left + "  t:" + cropped.left + "  t:" + cropped.top + "  b:" + cropped.bottom);
+                    cropped.right = Math.max(cropped.right + deltaX, cropped.left + maxValue(minWidth));
+                }
+                if ((movingEdges & MOVE_BOTTOM) != 0) {
+                    cropped.bottom = Math.max(cropped.bottom + deltaY, cropped.top + maxValue(minHeight));
+                }
+                Log.d(TAG, "[moveEdges] mRatio:" + mRatio + "  l:" + cropped.left + "  t:" + cropped.left + "  t:" + cropped.top + "  b:" + cropped.bottom);
 
 
             } else {
                 float base = Math.abs(deltaX) > Math.abs(deltaY) ? Math.abs(deltaX) : Math.abs(deltaY);
                 float symbol = deltaX == 0 ? 0 : deltaX / Math.abs(deltaX);
-                Log.d(TAG,"[moveEdges] containInBounder:"+bounderChecker.containInBounder(checkDelta));
+                Log.d(TAG, "[moveEdges] containInBounder:" + bounderChecker.containInBounder(checkDelta));
 
 
                 if ((movingEdges & MOVE_LEFT) != 0 && (movingEdges & MOVE_TOP) != 0) {
                     float changeLeft = cropped.left + base * symbol;
                     float changeTop = cropped.bottom - (cropped.right - changeLeft) * mRatio;
 
-                    Log.d(TAG,"[moveEdges] LT mRatio:"+mRatio+"  changeLeft:"+changeLeft+"  changeTop:"+changeTop);
+                    Log.d(TAG, "[moveEdges] LT mRatio:" + mRatio + "  changeLeft:" + changeLeft + "  changeTop:" + changeTop);
 //                    if (changeLeft > displayBounds.left &&
 //                            changeTop > displayBounds.top) {
 //                    if(bounderChecker.containInBounder(checkDelta)){
-                        cropped.left = Math.min(changeLeft, cropped.right - maxValue(minWidth));
-                        cropped.top = cropped.bottom - (cropped.right - cropped.left) * mRatio;
-                        if (cropped.bottom - cropped.top < minHeight) {
-                            cropped.top = cropped.bottom - maxValue(minHeight);
-                            cropped.left = cropped.right - (cropped.bottom - cropped.top) / mRatio;
-                        }
+                    cropped.left = Math.min(changeLeft, cropped.right - maxValue(minWidth));
+                    cropped.top = cropped.bottom - (cropped.right - cropped.left) * mRatio;
+                    if (cropped.bottom - cropped.top < minHeight) {
+                        cropped.top = cropped.bottom - maxValue(minHeight);
+                        cropped.left = cropped.right - (cropped.bottom - cropped.top) / mRatio;
+                    }
 //                    }
                 } else if ((movingEdges & MOVE_TOP) != 0 && (movingEdges & MOVE_RIGHT) != 0) {
                     float changeRight = cropped.right + base * symbol;
@@ -687,27 +693,27 @@ public class CropView extends ImageView {
 //                    if (changeRight < displayBounds.right &&
 //                            changeTop > displayBounds.top) {
 //                    if(bounderChecker.containInBounder(checkDelta)){
-                        cropped.right = Math.max(cropped.right + base * symbol, cropped.left + maxValue(minWidth));
-                        cropped.top = cropped.bottom - (cropped.right - cropped.left) * mRatio;
-                        if (cropped.bottom - cropped.top < minHeight) {
-                            cropped.top = cropped.bottom - maxValue(minHeight);
-                            cropped.left = cropped.right - (cropped.bottom - cropped.top) / mRatio;
-                        }
+                    cropped.right = Math.max(cropped.right + base * symbol, cropped.left + maxValue(minWidth));
+                    cropped.top = cropped.bottom - (cropped.right - cropped.left) * mRatio;
+                    if (cropped.bottom - cropped.top < minHeight) {
+                        cropped.top = cropped.bottom - maxValue(minHeight);
+                        cropped.left = cropped.right - (cropped.bottom - cropped.top) / mRatio;
+                    }
 //                    }
                 } else if ((movingEdges & MOVE_BOTTOM) != 0 && (movingEdges & MOVE_LEFT) != 0) {
                     float changeLeft = cropped.left + base * symbol;
                     float changeBottom = cropped.top + (cropped.right - changeLeft) * mRatio;
-                    Log.e("debug","[moveEdges]  display.left:"+displayBounds.left+"     display.bottom:"+displayBounds.bottom);
-                    Log.e("debug","[moveEdges]  changeLeft:"+changeLeft+"    changeBottom:"+changeBottom);
+                    Log.e("debug", "[moveEdges]  display.left:" + displayBounds.left + "     display.bottom:" + displayBounds.bottom);
+                    Log.e("debug", "[moveEdges]  changeLeft:" + changeLeft + "    changeBottom:" + changeBottom);
 //                    if (changeLeft > displayBounds.left &&
 //                            changeBottom < displayBounds.bottom) {
 //                    if(bounderChecker.containInBounder(checkDelta)){
-                        cropped.left = Math.min(cropped.left + base * symbol, cropped.right - maxValue(minWidth));
-                        cropped.bottom = cropped.top + (cropped.right - cropped.left) * mRatio;
-                        if (cropped.bottom - cropped.top < minHeight) {
-                            cropped.bottom = cropped.top + maxValue(minHeight);
-                            cropped.left = cropped.right - (cropped.bottom - cropped.top) / mRatio;
-                        }
+                    cropped.left = Math.min(cropped.left + base * symbol, cropped.right - maxValue(minWidth));
+                    cropped.bottom = cropped.top + (cropped.right - cropped.left) * mRatio;
+                    if (cropped.bottom - cropped.top < minHeight) {
+                        cropped.bottom = cropped.top + maxValue(minHeight);
+                        cropped.left = cropped.right - (cropped.bottom - cropped.top) / mRatio;
+                    }
 //                    }
 
                 } else if ((movingEdges & MOVE_BOTTOM) != 0 && (movingEdges & MOVE_RIGHT) != 0) {
@@ -716,12 +722,12 @@ public class CropView extends ImageView {
 //                    if (changeRight < displayBounds.right &&
 //                            changeBottom < displayBounds.bottom) {
 //                    if(bounderChecker.containInBounder(checkDelta)){
-                        cropped.right = Math.max(cropped.right + base * symbol, cropped.left + maxValue(minWidth));
-                        cropped.bottom = cropped.top + (cropped.right - cropped.left) * mRatio;
-                        if (cropped.bottom - cropped.top < minHeight) {
-                            cropped.bottom = cropped.top + maxValue(minHeight);
-                            cropped.left = cropped.right - (cropped.bottom - cropped.top) / mRatio;
-                        }
+                    cropped.right = Math.max(cropped.right + base * symbol, cropped.left + maxValue(minWidth));
+                    cropped.bottom = cropped.top + (cropped.right - cropped.left) * mRatio;
+                    if (cropped.bottom - cropped.top < minHeight) {
+                        cropped.bottom = cropped.top + maxValue(minHeight);
+                        cropped.left = cropped.right - (cropped.bottom - cropped.top) / mRatio;
+                    }
 //                    }
                 }
 
@@ -729,11 +735,23 @@ public class CropView extends ImageView {
                 if (Math.abs(ratio - mRatio) > 0.1)
                     return;
             }
-            if(bounderChecker.checkCropBounder(cropped)== false){
+            if (bounderChecker.checkCropBounder(cropped) == false) {
                 cropped.left = tmpLeft;
                 cropped.bottom = tmpBottom;
                 cropped.right = tmpRight;
                 cropped.top = tmpTop;
+            }
+
+
+            if (cropped.left < 0) {
+            }
+            if (cropped.top < 0) {
+            }
+            if (cropped.right > getWidth()) {
+                cropped.right = getWidth();
+            }
+            if (cropped.bottom > getHeight()) {
+                cropped.bottom = getHeight();
             }
 
             //To-DO  暂时撤销边缘检测
@@ -753,10 +771,14 @@ public class CropView extends ImageView {
 //            cropped.intersect(displayBounds);
 
         }
+        Log.d("debug", "[moveEdges]cropped:" + cropped);
+        Log.d("debug", "[moveEdges]  display.left:" + displayBounds.left + "     display.bottom:" + displayBounds.bottom);
 
         mapPhotoRect(cropped, cropBounds);
         refreshByCropChange(true);
     }
+
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -810,7 +832,7 @@ public class CropView extends ImageView {
 
     private void drawShadow(Canvas canvas, float left, float top, float right, float bottom) {
         canvas.save();
-        canvas.clipRect(200,200,400,400, Region.Op.XOR);
+        canvas.clipRect(200, 200, 400, 400, Region.Op.XOR);
 
 
         canvas.drawARGB(SHADOW_ALPHA * mAlpha / 255, 0, 0, 0);
@@ -844,8 +866,8 @@ public class CropView extends ImageView {
 
 
         canvas.save();
-        canvas.clipRect(cropped.left,cropped.top,cropped.right,cropped.bottom, Region.Op.XOR);
-        canvas.drawARGB(SHADOW_ALPHA * mAlpha / 255, 24,24, 27);
+        canvas.clipRect(cropped.left, cropped.top, cropped.right, cropped.bottom, Region.Op.XOR);
+        canvas.drawARGB(SHADOW_ALPHA * mAlpha / 255, 24, 24, 27);
         canvas.restore();
 
 //        //外框上部分
@@ -864,14 +886,13 @@ public class CropView extends ImageView {
         textPaint.setShadowLayer(1, 1, 1, color << 24);
         float textWidth = textPaint.measureText("" + (int) cropped.width() + "×" + (int) cropped.height());
         float textHeight = textPaint.getTextSize();
-        Log.e(TAG,"corp.width:"+cropped.width()+"   display.width:"+displayBounds.width()+"  originWidth:"+getOriginalWidth());
-
-
+        Log.e(TAG, "corp.width:" + cropped.width() + "   display.width:" + displayBounds.width() + "  originWidth:" + getOriginalWidth());
 //        Math.round(cropped.width() / displayBounds.width() * getOriginalWidth()) + "×" + Math.round(cropped.height() / displayBounds.height() * getOriginalHeight()), cropped.centerX() - textWidth / 2, cropped.centerY() + textHeight / 2;
         /* 绘制图片的长宽文字*/
-        String size = getCropImageSize(cropped);
-        canvas.drawText(size, cropped.centerX() - textWidth / 2, cropped.centerY() + textHeight / 2, textPaint);
-
+        String size = getCropImageSize();
+        if (showSize == true) {
+            canvas.drawText(size, cropped.centerX() - textWidth / 2, cropped.centerY() + textHeight / 2, textPaint);
+        }
         //if (notMoving) {
         drawIndicator(canvas, mDragPoint, cropped.left, cropped.top);
         //}
@@ -885,26 +906,26 @@ public class CropView extends ImageView {
         drawIndicator(canvas, mDragPoint, cropped.right, cropped.bottom);
         //}
 
-        int  lineCount =0;
-        switch (operationState){
-            case  NORMAL_STATE:
-                lineCount = 2 ;
+        int lineCount = 0;
+        switch (operationState) {
+            case NORMAL_STATE:
+                lineCount = 2;
                 break;
-            case  MOVE_STATE:
-                lineCount= 2;
+            case MOVE_STATE:
+                lineCount = 2;
                 break;
-            case  ROTATE_STATE:
+            case ROTATE_STATE:
                 lineCount = 8;
-                 break;
+                break;
         }
         for (int i = 0; i < lineCount; i++) {
-            drawDashLine(canvas, cropped.left + cropped.width() / (lineCount+1) * (i + 1), cropped.top,
-                    cropped.left + cropped.width() /  (lineCount+1) * (i + 1), cropped.bottom);
+            drawDashLine(canvas, cropped.left + cropped.width() / (lineCount + 1) * (i + 1), cropped.top,
+                    cropped.left + cropped.width() / (lineCount + 1) * (i + 1), cropped.bottom);
         }
 
         for (int i = 0; i < lineCount; i++) {
-            drawDashLine(canvas, cropped.left, cropped.top + cropped.height() / (lineCount+1) * (i + 1),
-                    cropped.right, cropped.top + cropped.height() / (lineCount+1) * (i + 1));
+            drawDashLine(canvas, cropped.left, cropped.top + cropped.height() / (lineCount + 1) * (i + 1),
+                    cropped.right, cropped.top + cropped.height() / (lineCount + 1) * (i + 1));
         }
 
         if (mRatio == 0) {
@@ -913,63 +934,70 @@ public class CropView extends ImageView {
             drawBorderIndicator(canvas, mDragBorderV, cropped.left, cropped.top + cropped.height() / 2, true);
             drawBorderIndicator(canvas, mDragBorderV, cropped.right, cropped.top + cropped.height() / 2, true);
         }
-        Log.e(TAG,"[CropView] l:"+cropped.left+" t:"+cropped.top+"  right:"+cropped.right+"  bottom:"+cropped.bottom);
-
-
+        Log.e(TAG, "[CropView] l:" + cropped.left + " t:" + cropped.top + "  right:" + cropped.right + "  bottom:" + cropped.bottom + "  opration:" + operationState);
 
 
         drawMinContainCoppeBoudn(canvas);
     }
 
-    public  float  oldScale = 1f;
-    public  float mInitScale;
-    public  boolean  isTruning = false;
+    public float oldScale = 1f;
+    public float mInitScale;
+    public boolean isTruning = false;
+
     /**
      * 获取裁剪框内的数字
+     *
      * @param cropped
      * @return
      */
-    public float  getImageScale(){
-        float[] value =new  float[9];
-        Matrix   matrix = getImageMatrix();
+    public float getImageScale() {
+        float[] value = new float[9];
+        Matrix matrix = getImageMatrix();
         matrix.getValues(value);
-        float scale ;
-        if(isTruning ==  false) {
-            scale = value[Matrix.MSCALE_X];
+        float scale;
+        if (isTruning == false) {
+            scale = Math.abs(value[Matrix.MSCALE_X]);
+        } else {
+            scale = Math.abs(value[Matrix.MSKEW_X]);
         }
-        else{
-            scale = value[Matrix.MSKEW_X];
-        }
-        Log.e("debug","[getImageScale] scale:"+scale+"  mInitScale:"+mInitScale);
-        Log.d("debug","[getImageScale] d.w:"+displayBounds.width()+"  d.h:"+displayBounds.height()+"  c.w:"+cropped.width()+"  c.h:"+cropped.height());
-        return  scale;
+        Log.e("debug", "[getImageScale] matrix:" + getImageMatrix());
+        Log.e("debug", "[getImageScale] scale:" + scale + "  mInitScale:" + mInitScale);
+        Log.d("debug", "[getImageScale] d.w:" + displayBounds.width() + "  d.h:" + displayBounds.height() + "  c.w:" + cropped.width() + "  c.h:" + cropped.height());
+        return scale;
     }
 
-    private String getCropImageSize(RectF cropped) {
+    public float getCropScale() {
+        return imageRect.getHeight() / getPhotoHeight();
+    }
+
+    protected String getCropImageSize() {
         String sizeStr = "";
-        float scale = getImageScale();
-         Log.e("debug", "[getCropImageSize]  initScale:" + mInitScale);
-        int width = Math.round(cropped.width()  / scale);
-        int height = Math.round(cropped.height()  / scale);
+//        Matrix  matrix = getImageMatrix();
+//        matrix.mapRect(mPhotoBoundRect, rectF);
+        float scaleW = imageRect.getWidth() / getPhotoWidth();
+        float scaleH = imageRect.getHeight() / getPhotoHeight();
+        Log.e("debug", "[getCropImageSize]  initScale:" + mInitScale + "  scale:" + scaleW);
+        int width = Math.round(cropped.width() / scaleW);
+        int height = Math.round(cropped.height() / scaleH);
         sizeStr = Math.abs(width) + "×" + Math.abs(height);
         return sizeStr;
     }
 
-    private void   drawMinContainCoppeBoudn(Canvas canvas){
+    private void drawMinContainCoppeBoudn(Canvas canvas) {
 
-       RectF  rectF = new RectF();
-       rectF.left = 0;
-       rectF.top = 0;
-       rectF.right = cropBounds.width();
-       rectF.bottom = cropBounds.height();
-       RectF  rectFDest = new RectF();
-       displayMatrix.mapRect(rectFDest,rectF);
+        RectF rectF = new RectF();
+        rectF.left = 0;
+        rectF.top = 0;
+        rectF.right = cropBounds.width();
+        rectF.bottom = cropBounds.height();
+        RectF rectFDest = new RectF();
+        displayMatrix.mapRect(rectFDest, rectF);
 
-        Log.d("debug","[drawMinContainCoppeBoudn] matix:"+displayMatrix+"  mPhotoBoundRect:"+rectFDest+" ImgMatix"+getImageMatrix());
-       Paint  paint = new Paint();
-       paint.setColor(Color.parseColor("#33ff00ff"));
-       canvas.drawRect(rectFDest,paint);
-   }
+        Log.d("debug", "[drawMinContainCoppeBoudn] matix:" + displayMatrix + "  mPhotoBoundRect:" + rectFDest + " ImgMatix" + getImageMatrix());
+        Paint paint = new Paint();
+        paint.setColor(Color.parseColor("#33ff00ff"));
+        canvas.drawRect(rectFDest, paint);
+    }
 
     private AnimationShowThread mShowThread = new AnimationShowThread();
     private AnimationHideThread mHideThread = new AnimationHideThread();
@@ -1052,10 +1080,11 @@ public class CropView extends ImageView {
     *更新长款拉升后裁剪框为居中
      */
     public RectF cropped;
-    public  void updateCropBound(){
+
+    public void updateCropBound() {
         cropped = getCropBoundsDisplayed();
-       float   cropWidth = cropped.width();
-       float   cropHeight = cropped.height();
+        float cropWidth = cropped.width();
+        float cropHeight = cropped.height();
         if (cropHeight == 0 || cropWidth == 0) {
             mViewW = getWidth();
             mViewH = getHeight();
@@ -1071,71 +1100,71 @@ public class CropView extends ImageView {
 
         float newCropWidth = 0;
         float newCropHeight = 0;
-        float  scale =0;
+        float scale = 0;
         //胖图片
         if (im_ratio >= view_ratio) {
             // 横向铺满
-            scale =  (mViewW-mRectPadding*2)/cropWidth;
-            newCropHeight= cropHeight*scale;
-            cropped.left=mRectPadding;
+            scale = (mViewW - mRectPadding * 2) / cropWidth;
+            newCropHeight = cropHeight * scale;
+            cropped.left = mRectPadding;
             cropped.right = mViewW - mRectPadding;
-            cropped.top = (mViewH-newCropHeight)/2;
-            cropped.bottom  =  cropped.top + newCropHeight;
-        }
-        else if (im_ratio < view_ratio) {
+            cropped.top = (mViewH - newCropHeight) / 2;
+            cropped.bottom = cropped.top + newCropHeight;
+        } else if (im_ratio < view_ratio) {
             // 纵向铺满
-            newCropHeight= (mViewH-2*mRectPadding);
-            scale =newCropHeight/ cropHeight;
-            newCropWidth =cropWidth*scale;
-            cropped.left=(mViewW-newCropWidth)/2;
-            cropped.right =cropped.left+newCropWidth;
+            newCropHeight = (mViewH - 2 * mRectPadding);
+            scale = newCropHeight / cropHeight;
+            newCropWidth = cropWidth * scale;
+            cropped.left = (mViewW - newCropWidth) / 2;
+            cropped.right = cropped.left + newCropWidth;
             cropped.top = mRectPadding;
-            cropped.bottom  =  mViewH-mRectPadding;
+            cropped.bottom = mViewH - mRectPadding;
         }
 
 
         Matrix matrix = getImageMatrix();
         float transX = centerX - cropped.centerX();
-        float  transY = centerY - cropped.centerY();
+        float transY = centerY - cropped.centerY();
 
         matrix.postScale(scale, scale, centerX, centerY);
         totalScale = totalScale * scale;
         matrix.postTranslate(-transX, -transY);
         mapPhotoRect(cropped, cropBounds);
-        Log.e("debug","[updateCropBound]:"+cropBounds);
+        Log.e("debug", "[updateCropBound]:" + cropBounds);
         refreshByCropChange(true);
 //        MAX_SCALE = Math.min(cropped.width(),cropped.height())/MIN_CROP_WIDTH_HEIGHT*getImageScale();
     }
 
-    public  void  resetCropBound(){
-      cropBounds.set(0, 0, 1, 1);
+    public void resetCropBound() {
+        cropBounds.set(0, 0, 1, 1);
     }
 
     //旋转角度
-    protected   float canvasRotate;
+    protected float canvasRotate;
 
     //增加画布旋转角度
-    public  void  addCanvasRotate(float  rotate){
+    public void addCanvasRotate(float rotate) {
         canvasRotate += rotate;
         canvasRotate = canvasRotate % 360;
     }
 
-    public  void  setCanvasRotate(float  rotate){
-        canvasRotate =rotate;
+    public void setCanvasRotate(float rotate) {
+        canvasRotate = rotate;
     }
 
-    public  void  setBounderChecker(RotateView.BounderChecker bounderChecker){
-        this.bounderChecker  =  bounderChecker;
-    }
-    public  void  resetPhotBounds(){
-       cropBounds.set(0,0,1,1);
+    public void setBounderChecker(RotateView.BounderChecker bounderChecker) {
+        this.bounderChecker = bounderChecker;
     }
 
-    public  interface  OperateListenner  {
-        public void  hasOprated();
+    public void resetPhotBounds() {
+        cropBounds.set(0, 0, 1, 1);
     }
 
-    public  void setOperatedListenner(OperateListenner ol){
-        this.operateListenner= ol;
+    public interface OperateListenner {
+        public void hasOprated();
+    }
+
+    public void setOperatedListenner(OperateListenner ol) {
+        this.operateListenner = ol;
     }
 }

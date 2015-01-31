@@ -89,12 +89,11 @@ public class CropActivity extends Activity implements View.OnClickListener
 
         rotateView = (RotateView)findViewById(R.id.rotate);
         //TODO  初始化图片宽度和高度
-
         rotateView.setOriginal(original.getWidth(), original.getHeight());
         rotateView.setRectPadding(20);
         w = original.getWidth();
         h = original.getHeight();
-           rectF = new RectF(0,0,w,h);
+        rectF = new RectF(0,0,w,h);
         rotateView.setPhotoBounds(rectF);
         rotateView.setImageBitmap(original);
 
@@ -103,6 +102,17 @@ public class CropActivity extends Activity implements View.OnClickListener
             @Override
             public void hasOprated() {
                 btnReset.setVisibility(View.VISIBLE);
+            }
+        });
+        rotateView.setCropListenenr(new RotateView.CropListenner() {
+            @Override
+            public void onCropping() {
+                seekBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void cropFinished() {
+                seekBar.setVisibility(View.VISIBLE);
             }
         });
 
@@ -118,6 +128,7 @@ public class CropActivity extends Activity implements View.OnClickListener
                     float degree = (p - centerPrecent) / centerPrecent * (centerPrecent - 5);
                     rotateView.rotate(degree, matrix);
                     rotateView.scaleImage();
+
                 } else {
                     needApply = true;
                 }
@@ -141,7 +152,7 @@ public class CropActivity extends Activity implements View.OnClickListener
                 btnReset.setVisibility(View.GONE);
                 oldDegree = 0;
                 needApply = false;
-                rotateView.setRectRatio(ratio);
+                rotateView.setRectRatio(0f);
                 rotateView.reset();
                 rotateView.updateCropBound();
                 rotateView.calRotate();
@@ -169,6 +180,7 @@ public class CropActivity extends Activity implements View.OnClickListener
             @Override
             public void onClick(View v) {
 //                rotateView.isContain();
+                rotateView.checkBound(null,null);
             }
         });
 
